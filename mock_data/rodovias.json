@@ -1,0 +1,8 @@
+[
+  {
+    "id": 1,
+    "nome": "Rodovia demonstrativa",
+    "estado": "SP",
+    "descricao": "Trecho inicial para demonstração do MVP"
+  }
+]

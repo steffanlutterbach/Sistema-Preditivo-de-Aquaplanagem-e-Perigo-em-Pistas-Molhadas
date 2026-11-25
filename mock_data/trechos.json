@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "rodovia_id": 1,
+    "km_inicial": 120.00,
+    "km_final": 121.00,
+    "comprimento_m": 1000.00,
+    "largura_m": 12.00,
+    "area_contribuicao_m2": 12000.00,
+    "coeficiente_escoamento": 0.80,
+    "inclinacao": 1.50
+  }
+]

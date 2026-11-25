@@ -1,0 +1,1 @@
+"""Registros das rotas públicas."""

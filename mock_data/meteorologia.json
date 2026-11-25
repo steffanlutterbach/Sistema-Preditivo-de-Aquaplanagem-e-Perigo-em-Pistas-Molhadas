@@ -1,0 +1,12 @@
+{
+  "modo_dados": "mock",
+  "medicoes": [
+    {
+      "trecho_id": 1,
+      "fonte": "MOCK_LOCAL",
+      "precipitacao_mm": 5.0,
+      "intensidade_mm_h": 5.0,
+      "data_hora": "2026-11-25T10:00:00-03:00"
+    }
+  ]
+}
