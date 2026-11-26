@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "nome": "Rodovia demonstrativa",
+    "nome": "BR-116 — Régis Bittencourt (segmentos demonstrativos)",
     "estado": "SP",
-    "descricao": "Trecho inicial para demonstração do MVP"
+    "descricao": "Cadastro de teste AquaSafe. Identificação e localização aproximadas fornecidas para simulação; validar em fonte oficial antes de qualquer uso operacional."
   }
 ]

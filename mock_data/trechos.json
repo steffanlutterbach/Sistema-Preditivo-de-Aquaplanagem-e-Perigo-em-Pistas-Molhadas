@@ -1,13 +1,57 @@
 [
   {
-    "id": 1,
-    "rodovia_id": 1,
-    "km_inicial": 120.00,
-    "km_final": 121.00,
-    "comprimento_m": 1000.00,
-    "largura_m": 12.00,
-    "area_contribuicao_m2": 12000.00,
-    "coeficiente_escoamento": 0.80,
-    "inclinacao": 1.50
+    "id": 1, "codigo": "BR116-264", "rodovia_id": 1, "km_inicial": 264.0, "km_final": 265.0,
+    "comprimento_m": 1000.0, "largura_m": 10.5, "area_contribuicao_m2": 10500.0,
+    "coeficiente_escoamento": 0.85, "inclinacao_percentual": 3.5,
+    "estado_inclinacao": "longitudinal; verificar em levantamento", "pavimentacao": "CAUQ", "estado_pavimento": "bom",
+    "mtd_mm": 0.8, "caminho_escoamento_m": 10.8, "declividade_caminho_percentual": null,
+    "drenagem": {"tipo": "Boca de lobo simples", "quantidade": 20, "capacidade_individual_l_s": 30.0, "capacidade_total_l_s": 600.0},
+    "coordenadas_aproximadas": {"inicio": {"latitude": -23.5935, "longitude": -46.7340}, "fim": {"latitude": -23.5968, "longitude": -46.7385}},
+    "geometria": {"type": "LineString", "coordinates": [[-46.7340, -23.5935], [-46.7385, -23.5968]]},
+    "origem_dados": "simulado_fornecido_pelo_usuario", "geometria_validada": false
+  },
+  {
+    "id": 2, "codigo": "BR116-265", "rodovia_id": 1, "km_inicial": 265.0, "km_final": 266.0,
+    "comprimento_m": 1000.0, "largura_m": 10.5, "area_contribuicao_m2": 10500.0,
+    "coeficiente_escoamento": 0.9, "inclinacao_percentual": 1.5,
+    "estado_inclinacao": "longitudinal; verificar em levantamento", "pavimentacao": "CAUQ", "estado_pavimento": "regular",
+    "mtd_mm": 0.55, "caminho_escoamento_m": 11.2, "declividade_caminho_percentual": null,
+    "drenagem": {"tipo": "Boca de lobo simples", "quantidade": 16, "capacidade_individual_l_s": 25.0, "capacidade_total_l_s": 400.0},
+    "coordenadas_aproximadas": {"inicio": {"latitude": -23.5968, "longitude": -46.7385}, "fim": {"latitude": -23.6001, "longitude": -46.7432}},
+    "geometria": {"type": "LineString", "coordinates": [[-46.7385, -23.5968], [-46.7432, -23.6001]]},
+    "origem_dados": "simulado_fornecido_pelo_usuario", "geometria_validada": false
+  },
+  {
+    "id": 3, "codigo": "BR116-266", "rodovia_id": 1, "km_inicial": 266.0, "km_final": 267.0,
+    "comprimento_m": 1000.0, "largura_m": 10.5, "area_contribuicao_m2": 10500.0,
+    "coeficiente_escoamento": 0.95, "inclinacao_percentual": 0.8,
+    "estado_inclinacao": "longitudinal; verificar em levantamento", "pavimentacao": "CAUQ", "estado_pavimento": "irregular",
+    "mtd_mm": 0.35, "caminho_escoamento_m": 12.0, "declividade_caminho_percentual": null,
+    "drenagem": {"tipo": "Grelha de sarjeta / Boca de lobo", "quantidade": 12, "capacidade_individual_l_s": 15.0, "capacidade_total_l_s": 180.0, "observacao": "Capacidade informada como parcialmente obstruída; não medida em campo."},
+    "coordenadas_aproximadas": {"inicio": {"latitude": -23.6001, "longitude": -46.7432}, "fim": {"latitude": -23.6030, "longitude": -46.7480}},
+    "geometria": {"type": "LineString", "coordinates": [[-46.7432, -23.6001], [-46.7480, -23.6030]]},
+    "origem_dados": "simulado_fornecido_pelo_usuario", "geometria_validada": false
+  },
+  {
+    "id": 4, "codigo": "BR116-267", "rodovia_id": 1, "km_inicial": 267.0, "km_final": 268.0,
+    "comprimento_m": 1000.0, "largura_m": 10.5, "area_contribuicao_m2": 10500.0,
+    "coeficiente_escoamento": 0.88, "inclinacao_percentual": 4.2,
+    "estado_inclinacao": "longitudinal; verificar em levantamento", "pavimentacao": "CAUQ", "estado_pavimento": "regular",
+    "mtd_mm": 0.6, "caminho_escoamento_m": 11.0, "declividade_caminho_percentual": null,
+    "drenagem": {"tipo": "Boca de lobo simples", "quantidade": 18, "capacidade_individual_l_s": 28.0, "capacidade_total_l_s": 504.0},
+    "coordenadas_aproximadas": {"inicio": {"latitude": -23.6030, "longitude": -46.7480}, "fim": {"latitude": -23.6058, "longitude": -46.7528}},
+    "geometria": {"type": "LineString", "coordinates": [[-46.7480, -23.6030], [-46.7528, -23.6058]]},
+    "origem_dados": "simulado_fornecido_pelo_usuario", "geometria_validada": false
+  },
+  {
+    "id": 5, "codigo": "BR116-268", "rodovia_id": 1, "km_inicial": 268.0, "km_final": 269.0,
+    "comprimento_m": 1000.0, "largura_m": 10.5, "area_contribuicao_m2": 10500.0,
+    "coeficiente_escoamento": 0.9, "inclinacao_percentual": 2.1,
+    "estado_inclinacao": "longitudinal; verificar em levantamento", "pavimentacao": "CAUQ", "estado_pavimento": "regular",
+    "mtd_mm": 0.5, "caminho_escoamento_m": 11.5, "declividade_caminho_percentual": null,
+    "drenagem": {"tipo": "Boca de lobo simples", "quantidade": 15, "capacidade_individual_l_s": 22.0, "capacidade_total_l_s": 330.0},
+    "coordenadas_aproximadas": {"inicio": {"latitude": -23.6058, "longitude": -46.7528}, "fim": {"latitude": -23.6085, "longitude": -46.7575}},
+    "geometria": {"type": "LineString", "coordinates": [[-46.7528, -23.6058], [-46.7575, -23.6085]]},
+    "origem_dados": "simulado_fornecido_pelo_usuario", "geometria_validada": false
   }
 ]

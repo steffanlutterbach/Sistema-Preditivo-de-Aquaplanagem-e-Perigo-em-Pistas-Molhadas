@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "codigo_externo": "CEMADEN-BUTANTA-CANDIDATA",
+    "fonte": "Cemaden",
+    "nome": "Pluviômetros de referência da Subprefeitura do Butantã / Vila Sônia",
+    "origem_dados": "mock",
+    "status_associacao": "pendente_validacao",
+    "coordenadas": null,
+    "trechos_candidatos": [1, 2, 3, 4, 5],
+    "observacao": "Candidata indicada pelo usuário; estação, distância, cobertura e representatividade não verificadas. Não representa medição real."
+  },
+  {
+    "id": 2,
+    "codigo_externo": "INMET-A701-CANDIDATA",
+    "fonte": "INMET",
+    "nome": "Estação Automática São Paulo - Mirante de Santana (A701)",
+    "origem_dados": "mock",
+    "status_associacao": "pendente_validacao",
+    "coordenadas": null,
+    "trechos_candidatos": [1, 2, 3, 4, 5],
+    "observacao": "Estação candidata indicada pelo usuário; representatividade para os segmentos não verificada. Não representa medição real."
+  },
+  {
+    "id": 3,
+    "codigo_externo": "INMET-A771-CANDIDATA",
+    "fonte": "INMET",
+    "nome": "Estação Automática São Paulo - Interlagos (A771)",
+    "origem_dados": "mock",
+    "status_associacao": "pendente_validacao",
+    "coordenadas": null,
+    "trechos_candidatos": [1, 2, 3, 4, 5],
+    "observacao": "Estação candidata indicada pelo usuário; representatividade para os segmentos não verificada. Não representa medição real."
+  }
+]

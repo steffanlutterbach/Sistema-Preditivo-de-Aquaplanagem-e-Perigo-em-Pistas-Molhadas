@@ -1,5 +1,6 @@
 {
   "modo_dados": "mock",
+  "observacao": "Cenários experimentais para teste de software; resultados não são limites validados para condução em via real.",
   "cenarios": [
     {
       "id": 1,
@@ -8,9 +9,7 @@
       "fonte": "MOCK_LOCAL",
       "precipitacao_mm": 5.0,
       "intensidade_mm_h": 5.0,
-      "temperatura_c": 21.5,
       "data_hora": "2026-11-25T10:00:00-03:00",
-      "localizacao": {"latitude": -23.5505, "longitude": -46.6333},
       "estado_pavimento": "bom",
       "drenagem": {
         "quantidade": 6,
@@ -26,9 +25,7 @@
       "fonte": "MOCK_LOCAL",
       "precipitacao_mm": 20.0,
       "intensidade_mm_h": 20.0,
-      "temperatura_c": 19.8,
       "data_hora": "2026-11-25T10:15:00-03:00",
-      "localizacao": {"latitude": -23.5525, "longitude": -46.6365},
       "estado_pavimento": "regular",
       "drenagem": {
         "quantidade": 4,
@@ -44,9 +41,7 @@
       "fonte": "MOCK_LOCAL",
       "precipitacao_mm": 35.0,
       "intensidade_mm_h": 35.0,
-      "temperatura_c": 18.2,
       "data_hora": "2026-11-25T10:30:00-03:00",
-      "localizacao": {"latitude": -23.5550, "longitude": -46.6400},
       "estado_pavimento": "irregular",
       "drenagem": {
         "quantidade": 2,
