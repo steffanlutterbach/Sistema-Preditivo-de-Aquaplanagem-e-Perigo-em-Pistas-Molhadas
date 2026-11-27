@@ -10,7 +10,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import alertas, analises, meteorologia, monitoramento, rodovias, trechos
 from app.core.config import API_KEY, CORS_ORIGINS, DATA_MODE
 from app.repositories import (
-    dados_desatualizados, listar_analises, listar_cenarios, listar_rodovias, listar_trechos,
+    dados_desatualizados, listar_analises, listar_cenarios,
+    listar_rodovias, listar_trechos, listar_medicoes,
     registrar_medicao, verificar_banco,
 )
 from app.schemas import SimulacaoInput
@@ -95,8 +96,28 @@ def executar_simulacao(dados: SimulacaoInput):
         "data_hora": now,
         "modo_dados": "mock",
     }
-    if DATA_MODE == "mock":
-        weather = registrar_medicao(weather)
+        if DATA_MODE == "mock":
+        try:
+            weather = registrar_medicao(weather)
+        except ValueError as erro:
+            existing = next(
+                (
+                    item for item in listar_medicoes(dados.trecho_id)
+                    if item.get("fonte") == weather["fonte"]
+                    and item.get("data_hora") == now.isoformat()
+                    and item.get("precipitacao_mm") == weather["precipitacao_mm"]
+                    and item.get("intensidade_mm_h") == weather["intensidade_mm_h"]
+                ),
+                None,
+            )
+
+            if existing is None:
+                raise HTTPException(
+                    status_code=409,
+                    detail=str(erro),
+                ) from erro
+
+            weather = existing
     else:
         weather["id"] = 0  # Simulação isolada: não grava cenário no banco operacional.
     drainage = segment.get("drenagem") or {}

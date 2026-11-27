@@ -19,7 +19,11 @@ def request(method: str, path: str, payload: dict | None = None, headers: dict[s
         "type": "http", "asgi": {"version": "3.0"}, "http_version": "1.1",
         "method": method, "scheme": "http", "path": parsed.path, "raw_path": parsed.path.encode(),
         "query_string": parsed.query.encode(),
-        "headers": [(b"host", b"test"), *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items())],
+        "headers": [
+    (b"host", b"test"),
+    *([(b"content-type", b"application/json")] if payload is not None else []),
+    *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items()),
+],
         "client": ("test", 1234), "server": ("test", 80),
     }
     sent = []
