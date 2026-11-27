@@ -1,0 +1,113 @@
+:root {
+  color-scheme: dark;
+  --fundo: #0a1d2e;
+  --painel: #102a43;
+  --painel-2: #163552;
+  --linha: #24476a;
+  --texto: #f4f8fb;
+  --suave: #a9bccd;
+  --azul: #38bdf8;
+  --baixo: #22c55e;
+  --moderado: #facc15;
+  --alto: #ef4444;
+  --expirado: #fb923c;
+  --resolvido: #94a3b8;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fundo); color: var(--texto); line-height: 1.5; }
+h1 { font-size: clamp(26px, 3.4vw, 34px); line-height: 1.1; margin: 8px 0 16px; }
+h2 { font-size: 20px; margin: 0 0 10px; }
+h3 { font-size: 16px; margin: 16px 0 6px; }
+
+.topo {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px max(4vw, 16px); border-bottom: 1px solid var(--linha);
+}
+.marca { display: flex; align-items: center; gap: 12px; }
+.marca strong { display: block; font-size: 20px; line-height: 1.1; }
+.marca small { color: var(--suave); }
+.gota { width: 24px; height: 24px; background: var(--azul); border-radius: 0 50% 50% 50%; transform: rotate(45deg); }
+.abas, .filtros { display: flex; flex-wrap: wrap; gap: 6px; }
+.abas button, .filtros button {
+  min-height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--linha);
+  background: var(--painel); color: var(--texto); font: inherit; font-weight: 600; cursor: pointer;
+}
+.abas button.ativa, .filtros button.ativa { background: var(--azul); border-color: var(--azul); color: #062033; }
+.selo { font-size: 14px; color: var(--azul); border: 1px solid var(--linha); border-radius: 999px; padding: 4px 12px; }
+.selo-erro { color: var(--alto); }
+
+.conteudo { max-width: 1240px; margin: 0 auto; padding: 16px max(4vw, 16px) 32px; }
+.rodape { text-align: center; color: var(--suave); font-size: 14px; padding: 16px; border-top: 1px solid var(--linha); }
+.painel { background: var(--painel); border: 1px solid var(--linha); border-radius: 14px; padding: 16px; }
+.nota, .vazio { color: var(--suave); }
+
+.indicadores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.indicador { background: var(--painel); border: 1px solid var(--linha); border-radius: 14px; padding: 12px 16px; }
+.indicador span, .indicador small { display: block; color: var(--suave); font-size: 14px; }
+.indicador strong { display: block; font-size: 30px; line-height: 1.25; }
+
+.grade { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px; align-items: start; }
+.grade-mapa { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+
+.lista-trechos ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.lista-trechos button {
+  width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto 4.5em; align-items: center; gap: 10px;
+  min-height: 44px; padding: 6px 12px; border-radius: 10px; border: 1px solid transparent;
+  background: var(--painel-2); color: var(--texto); font: inherit; text-align: left; cursor: pointer;
+}
+.lista-trechos button.selecionado { border-color: var(--azul); }
+.lista-trechos .pontos { text-align: right; font-variant-numeric: tabular-nums; }
+
+.pilula {
+  display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  color: #0a1d2e; background: var(--resolvido); white-space: nowrap;
+}
+.pilula.baixo { background: var(--baixo); }
+.pilula.moderado { background: var(--moderado); }
+.pilula.alto, .pilula.status-ativo { background: var(--alto); }
+.pilula.status-expirado { background: var(--expirado); }
+
+.cartao-risco header, .alerta header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.cartao-risco small, .alerta small { color: var(--suave); }
+.numeros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 12px 0 0; }
+.numeros div { background: var(--painel-2); border-radius: 10px; padding: 8px 12px; }
+.numeros dt { font-size: 13px; color: var(--suave); }
+.numeros dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.fator { display: grid; grid-template-columns: 7.5em minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 14px; margin: 6px 0; }
+.barra { height: 10px; background: var(--painel-2); border-radius: 99px; overflow: hidden; }
+.barra i { display: block; height: 100%; background: var(--azul); }
+.fator output { font-variant-numeric: tabular-nums; }
+.aviso { color: var(--expirado); font-size: 14px; margin: 8px 0 0; }
+.erro { border-color: var(--alto); }
+
+.mapa { height: 520px; border-radius: 14px; border: 1px solid var(--linha); }
+.lista-alertas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 12px; margin-top: 12px; }
+.alerta h2 { font-size: 18px; }
+
+@media (max-width: 900px) {
+  .grade, .grade-mapa, .indicadores { grid-template-columns: minmax(0, 1fr); }
+  .mapa { height: 380px; }
+}
+
+/* Simulação, motorista e formulários */
+.campo { display: grid; gap: 4px; font-size: 14px; color: var(--suave); }
+select {
+  min-height: 40px; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--linha);
+  background: var(--painel-2); color: var(--texto); font: inherit; font-size: 15px;
+}
+.botao {
+  min-height: 40px; padding: 0 18px; border-radius: 10px; border: 0; background: var(--azul);
+  color: #062033; font: inherit; font-weight: 700; cursor: pointer;
+}
+.botao:disabled { opacity: 0.6; cursor: wait; }
+.simulacao { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 16px; margin-bottom: 16px; }
+.simulacao .nota, .simulacao .aviso { flex-basis: 100%; margin: 0; }
+.coluna { display: grid; gap: 16px; }
+.lista-trechos .nome { display: grid; }
+.lista-trechos .nome small { color: var(--suave); font-size: 13px; }
+.motorista p { margin: 8px 0 0; }
+.proximos { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 6px; }
+.proximos li { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--painel-2); border-radius: 10px; padding: 6px 10px; }
+.alerta-motorista { background: rgba(239, 68, 68, 0.14); border: 1px solid var(--alto); border-radius: 10px; padding: 8px 12px; }
