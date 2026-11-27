@@ -31,5 +31,71 @@
     "coordenadas": null,
     "trechos_candidatos": [1, 2, 3, 4, 5],
     "observacao": "Estação candidata indicada pelo usuário; representatividade para os segmentos não verificada. Não representa medição real."
+  },
+  {
+    "id": 4,
+    "codigo_externo": "355030885A",
+    "fonte": "Cemaden",
+    "nome": "Vila Maria / Parque Novo Mundo",
+    "origem_dados": "mock",
+    "status_associacao": "validada",
+    "coordenadas": null,
+    "cobertura_km": {
+      "inicial": 225.0,
+      "final": 228.0
+    },
+    "trechos_candidatos": [
+      6,
+      7,
+      8
+    ],
+    "associacoes": {
+      "6": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      },
+      "7": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      },
+      "8": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      }
+    },
+    "observacao": "Mock station data supplied by user; validation flag is for testing only and is not an operational Cemaden confirmation."
+  },
+  {
+    "id": 5,
+    "codigo_externo": "355030843A",
+    "fonte": "Cemaden",
+    "nome": "Santana / Carandiru",
+    "origem_dados": "mock",
+    "status_associacao": "validada",
+    "coordenadas": null,
+    "cobertura_km": {
+      "inicial": 228.0,
+      "final": 230.0
+    },
+    "trechos_candidatos": [
+      9,
+      10
+    ],
+    "associacoes": {
+      "9": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      },
+      "10": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      }
+    },
+    "observacao": "Mock station data supplied by user; validation flag is for testing only and is not an operational Cemaden confirmation."
   }
 ]
