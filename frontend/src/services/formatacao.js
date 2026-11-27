@@ -21,6 +21,13 @@ export function hora(iso) {
   return Number.isNaN(data.getTime()) ? "—" : data.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
 }
 
+/** Data e hora locais (DD/MM às HH:MM), para o histórico de alertas. */
+export function dataHora(iso) {
+  const data = new Date(iso ?? "");
+  if (Number.isNaN(data.getTime())) return "—";
+  return `${data.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })} às ${hora(iso)}`;
+}
+
 /** Nível de risco ou, quando não há nível, o motivo (sem análise, dados insuficientes...). */
 export function rotuloRisco(item) {
   return item?.nivel_risco ?? STATUS[item?.status_analise] ?? "sem análise";
