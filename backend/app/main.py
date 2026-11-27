@@ -96,7 +96,7 @@ def executar_simulacao(dados: SimulacaoInput):
         "data_hora": now,
         "modo_dados": "mock",
     }
-        if DATA_MODE == "mock":
+    if DATA_MODE == "mock":
         try:
             weather = registrar_medicao(weather)
         except ValueError as erro:
