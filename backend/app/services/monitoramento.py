@@ -30,6 +30,22 @@ def _segment_distance(point: tuple[float, float], a: tuple[float, float], b: tup
     return sqrt((ax + fraction * dx) ** 2 + (ay + fraction * dy) ** 2), fraction
 
 
+def _polyline_projection(point: tuple[float, float], points: list[tuple[float, float]]) -> tuple[float, float]:
+    """Distância até a linha do trecho e fração ao longo dela inteira (0 = início, 1 = fim).
+
+    Com geometria de vários pontos, a fração de um único segmento não representa o trecho todo."""
+    lengths = [_haversine(a, b) for a, b in zip(points, points[1:])]
+    total = sum(lengths)
+    best_distance, best_fraction, travelled = float("inf"), 0.0, 0.0
+    for (a, b), length in zip(zip(points, points[1:]), lengths):
+        distance, fraction = _segment_distance(point, a, b)
+        if distance < best_distance:
+            best_distance = distance
+            best_fraction = (travelled + fraction * length) / total if total else fraction
+        travelled += length
+    return best_distance, best_fraction
+
+
 def _geometry_points(segment: dict[str, Any]) -> list[tuple[float, float]]:
     geometry = segment.get("geometria")
     if geometry and geometry.get("type") == "LineString":
@@ -52,7 +68,7 @@ def consultar_riscos_proximos(latitude: float, longitude: float, sentido: str | 
         points = _geometry_points(segment)
         if len(points) < 2:
             continue
-        nearest, fraction = min((_segment_distance(point, a, b) for a, b in zip(points, points[1:])), key=lambda result: result[0])
+        nearest, fraction = _polyline_projection(point, points)
         candidates.append((nearest, fraction, segment, points))
 
     mode_note = "geometria_mock_aproximada; correspondência apenas para teste" if DATA_MODE == "mock" else "geometria_validada"
