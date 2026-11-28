@@ -75,6 +75,22 @@ def _mem_trechos() -> list[dict[str, Any]]:
         return _trechos_mem
 
 
+def _normalizar_drenagem(drenagem: dict[str, Any] | None) -> dict[str, Any]:
+    """Calcula a capacidade nominal total quando há dados individuais."""
+    if not drenagem:
+        return {}
+
+    resultado = dict(drenagem)
+    quantidade = resultado.get("quantidade", 1)
+    capacidade_individual = resultado.get("capacidade_individual_l_s")
+
+    if capacidade_individual is not None:
+        resultado["capacidade_total_l_s"] = (
+            float(quantidade) * float(capacidade_individual)
+        )
+
+    return resultado
+
 def _linha_trecho(row: dict[str, Any]) -> dict[str, Any]:
     item = dict(row)
     if item.get("geometria") and isinstance(item["geometria"], str):
@@ -98,17 +114,19 @@ def listar_trechos() -> list[dict[str, Any]]:
                t.comprimento AS comprimento_m,t.largura AS largura_m,
                t.area_contribuicao_m2,t.coeficiente_escoamento,
                t.inclinacao AS inclinacao_percentual,t.mtd_mm,
-               t.caminho_escoamento_m,t.declividade_caminho_pct AS declividade_caminho_percentual,
+               t.caminho_escoamento_m,t.declividade_caminho_percentual,
                t.estado_inclinacao,t.origem_geometria,t.geometria_validada,t.origem_dados,
                ST_AsGeoJSON(t.geometria)::json AS geometria,
                cp.pavimentacao,cp.estado_pavimento,
+               cp.origem_dados AS condicoes_origem_dados,
+               dr.origem_dados AS drenagem_origem_dados,
                dr.tipo AS drenagem_tipo,dr.quantidade AS drenagem_quantidade,
                dr.capacidade_individual AS drenagem_capacidade_individual_l_s,
-               dr.capacidade_total AS drenagem_capacidade_total_l_s,dr.observacoes AS drenagem_observacao
+               dr.capacidade_total AS drenagem_capacidade_total_l_s,dr.observacao AS drenagem_observacao
         FROM trechos t
-        LEFT JOIN LATERAL (SELECT pavimentacao,estado_pavimento FROM condicoes_pista
+        LEFT JOIN LATERAL (SELECT pavimentacao,estado_pavimento,origem_dados FROM condicoes_pista
                            WHERE trecho_id=t.id ORDER BY data_inspecao DESC LIMIT 1) cp ON TRUE
-        LEFT JOIN LATERAL (SELECT tipo,quantidade,capacidade_individual,capacidade_total FROM drenagem
+        LEFT JOIN LATERAL (SELECT tipo,quantidade,capacidade_individual,capacidade_total,observacao,origem_dados FROM drenagem
                            WHERE trecho_id=t.id ORDER BY id DESC LIMIT 1) dr ON TRUE
         ORDER BY t.km_inicial NULLS LAST,t.id
     """
@@ -117,14 +135,22 @@ def listar_trechos() -> list[dict[str, Any]]:
     results = []
     for row in rows:
         item = _linha_trecho(row)
+
+        item["origem_condicoes_pista"] = item.pop(
+            "condicoes_origem_dados", None
+        )
+
         item["drenagem"] = {
             "tipo": item.pop("drenagem_tipo", None),
             "quantidade": item.pop("drenagem_quantidade", None),
             "capacidade_individual_l_s": item.pop("drenagem_capacidade_individual_l_s", None),
             "capacidade_total_l_s": item.pop("drenagem_capacidade_total_l_s", None),
             "observacao": item.pop("drenagem_observacao", None),
+            "origem_dados": item.pop("drenagem_origem_dados", None),
         }
+
         results.append(_plain(item))
+
     return results
 
 
@@ -132,16 +158,56 @@ def consultar_trecho(trecho_id: int) -> dict[str, Any] | None:
     return next((item for item in listar_trechos() if int(item["id"]) == trecho_id), None)
 
 
+
 def _salvar_caracteristicas(conn: Any, trecho_id: int, dados: dict[str, Any]) -> None:
     if dados.get("pavimentacao") or dados.get("estado_pavimento"):
-        conn.execute("INSERT INTO condicoes_pista (trecho_id,pavimentacao,estado_pavimento,observacoes) VALUES (%s,%s,%s,%s)",
-                     (trecho_id,dados.get("pavimentacao"),dados.get("estado_pavimento"),dados.get("observacoes")))
+        conn.execute(
+            """INSERT INTO condicoes_pista
+            (trecho_id, pavimentacao, estado_pavimento, observacoes, origem_dados)
+            VALUES (%s, %s, %s, %s, %s)""",
+        (
+            trecho_id,
+            dados.get("pavimentacao"),
+            dados.get("estado_pavimento"),
+            dados.get("observacoes"),
+            dados.get("origem_condicoes_pista", "desconhecido"),
+        ),
+)
+
     drainage = dados.get("drenagem")
     if drainage:
-        conn.execute("INSERT INTO drenagem (trecho_id,tipo,quantidade,capacidade_individual,capacidade_total,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
-                     (trecho_id,drainage.get("tipo"),drainage.get("quantidade",1),
-                      drainage.get("capacidade_individual_l_s"),drainage.get("capacidade_total_l_s"),
-                      drainage.get("observacao")))
+        atual = conn.execute(
+         """SELECT tipo, quantidade,
+                capacidade_individual AS capacidade_individual_l_s,
+                capacidade_total AS capacidade_total_l_s,
+                observacao, origem_dados
+        FROM drenagem
+        WHERE trecho_id = %s
+        ORDER BY id DESC
+        LIMIT 1""",
+            (trecho_id,),
+        ).fetchone()
+
+        dados_drenagem = dict(atual) if atual else {}
+        dados_drenagem.update(drainage)
+        drainage = _normalizar_drenagem(dados_drenagem)
+
+        conn.execute(
+            """INSERT INTO drenagem
+            (trecho_id, tipo, quantidade, capacidade_individual,
+             capacidade_total, observacao, origem_dados)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+            (
+                trecho_id,
+                drainage.get("tipo"),
+                drainage.get("quantidade", 1),
+                drainage.get("capacidade_individual_l_s"),
+                drainage.get("capacidade_total_l_s"),
+                drainage.get("observacao"),
+                drainage.get("origem_dados", "desconhecido"),
+            ),
+        )
+
 
 
 def criar_trecho(trecho: dict[str, Any]) -> dict[str, Any]:
@@ -151,6 +217,10 @@ def criar_trecho(trecho: dict[str, Any]) -> dict[str, Any]:
             if any(item.get("codigo") == trecho.get("codigo") for item in segments):
                 raise ValueError("Já existe um trecho com esse código")
             item = dict(trecho)
+
+            if item.get("drenagem"):
+                item["drenagem"] = _normalizar_drenagem(item["drenagem"])
+
             item["id"] = max((int(x["id"]) for x in segments), default=0) + 1
             item.setdefault("origem_dados", "mock")
             segments.append(item)
@@ -161,7 +231,7 @@ def criar_trecho(trecho: dict[str, Any]) -> dict[str, Any]:
             row = conn.execute(
             """INSERT INTO trechos (codigo,rodovia_id,km_inicial,km_final,comprimento,largura,
                area_contribuicao_m2,coeficiente_escoamento,inclinacao,geometria,
-               mtd_mm,caminho_escoamento_m,declividade_caminho_pct,estado_inclinacao,origem_geometria,geometria_validada,origem_dados)
+               mtd_mm,caminho_escoamento_m,declividade_caminho_percentual,estado_inclinacao,origem_geometria,geometria_validada,origem_dados)
                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,
                CASE WHEN %s::jsonb IS NULL THEN NULL ELSE ST_SetSRID(ST_GeomFromGeoJSON(%s),4326) END,
                %s,%s,%s,%s,%s,%s,%s) RETURNING id""",
@@ -187,12 +257,20 @@ def atualizar_trecho(trecho_id: int, alteracoes: dict[str, Any]) -> dict[str, An
     if not _real():
         with _lock:
             stored = next(item for item in _mem_trechos() if int(item["id"]) == trecho_id)
-            stored.update(alteracoes)
+
+            novas_alteracoes = dict(alteracoes)
+
+            if "drenagem" in novas_alteracoes and novas_alteracoes["drenagem"] is not None:
+                drenagem_atual = dict(stored.get("drenagem") or {})
+                drenagem_atual.update(novas_alteracoes["drenagem"])
+                novas_alteracoes["drenagem"] = _normalizar_drenagem(drenagem_atual)
+
+            stored.update(novas_alteracoes)
             return dict(stored)
     columns = {"codigo":"codigo","rodovia_id":"rodovia_id","km_inicial":"km_inicial","km_final":"km_final",
         "comprimento_m":"comprimento","largura_m":"largura","area_contribuicao_m2":"area_contribuicao_m2",
         "coeficiente_escoamento":"coeficiente_escoamento","inclinacao_percentual":"inclinacao","mtd_mm":"mtd_mm",
-        "caminho_escoamento_m":"caminho_escoamento_m","declividade_caminho_percentual":"declividade_caminho_pct",
+        "caminho_escoamento_m":"caminho_escoamento_m","declividade_caminho_percentual":"declividade_caminho_percentual",
         "estado_inclinacao":"estado_inclinacao","origem_geometria":"origem_geometria",
         "geometria_validada":"geometria_validada","origem_dados":"origem_dados"}
     changes = [(columns[k],v) for k,v in alteracoes.items() if k in columns]
@@ -229,7 +307,7 @@ def listar_estacoes(trecho_id: int | None = None) -> list[dict[str, Any]]:
         return associated
     query = """SELECT e.id,e.codigo_externo,e.nome,e.ativa,e.origem_dados,te.trecho_id,
        te.status_associacao,te.distancia_km,fd.nome AS fonte
-       FROM estacoes_meteorologicas e LEFT JOIN fontes_dados fd ON fd.id=e.fonte_id
+       FROM estacoes e LEFT JOIN fontes_dados fd ON fd.id=e.fonte_id
        LEFT JOIN trechos_estacoes te ON te.estacao_id=e.id
        WHERE (%s::integer IS NULL OR te.trecho_id=%s) ORDER BY e.nome"""
     with conectar() as conn:
@@ -243,11 +321,16 @@ def criar_estacao(dados: dict[str, Any]) -> dict[str, Any]:
             source = conn.execute("""INSERT INTO fontes_dados(nome,tipo,descricao) VALUES (%s,'meteorologica',%s)
                 ON CONFLICT(nome) DO UPDATE SET nome=EXCLUDED.nome RETURNING id""",
                 (dados["fonte"],"Fonte configurada pelo operador do AquaSafe.")).fetchone()
-            row = conn.execute("""INSERT INTO estacoes_meteorologicas(codigo_externo,fonte_id,nome,latitude,longitude,geometria,origem_dados,observacoes)
-                VALUES (%s,%s,%s,%s,%s,CASE WHEN %s::double precision IS NULL OR %s::double precision IS NULL THEN NULL ELSE ST_SetSRID(ST_MakePoint(%s,%s),4326) END,%s,%s)
-                RETURNING id,codigo_externo,nome,latitude,longitude,origem_dados,observacoes""",
-                (dados["codigo_externo"],source["id"],dados["nome"],dados.get("latitude"),dados.get("longitude"),
-                 dados.get("latitude"),dados.get("longitude"),dados.get("longitude"),dados.get("latitude"),
+            row = conn.execute("""INSERT INTO estacoes
+                (codigo_externo,fonte,nome,fonte_id,latitude,longitude,geometria,origem_dados,observacoes)
+                VALUES (%s,%s,%s,%s,%s,%s,
+                CASE WHEN %s::double precision IS NULL OR %s::double precision IS NULL
+                THEN NULL ELSE ST_SetSRID(ST_MakePoint(%s,%s),4326) END,%s,%s)
+                RETURNING id,codigo_externo,fonte,nome,fonte_id,latitude,longitude,origem_dados,observacoes""",
+                (dados["codigo_externo"],dados["fonte"],dados["nome"],source["id"],
+                 dados.get("latitude"),dados.get("longitude"),
+                 dados.get("latitude"),dados.get("longitude"),
+                 dados.get("longitude"),dados.get("latitude"),
                  dados.get("origem_dados","real"),dados.get("observacoes"))).fetchone()
             return _plain(dict(row))
         except UniqueViolation as erro:
@@ -333,7 +416,9 @@ def registrar_medicao(medicao: dict[str, Any]) -> dict[str, Any]:
                  _as_datetime(item["data_hora"]),item.get("estacao_id"),item["modo_dados"],item.get("identificador_externo"))).fetchone()
             item["id"] = row["id"]
         except UniqueViolation as erro:
-            raise ValueError("Medição duplicada para trecho, fonte, data/hora ou identificador externo") from erro
+            raise ValueError(
+                "Medição duplicada para trecho, fonte, data/hora ou identificador externo"
+            ) from erro
     else:
         with _lock:
             for existing in _medicoes:

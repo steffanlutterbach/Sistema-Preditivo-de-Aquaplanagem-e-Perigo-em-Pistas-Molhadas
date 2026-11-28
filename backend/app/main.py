@@ -95,10 +95,7 @@ def executar_simulacao(dados: SimulacaoInput):
         "data_hora": now,
         "modo_dados": "mock",
     }
-    if DATA_MODE == "mock":
-        weather = registrar_medicao(weather)
-    else:
-        weather["id"] = 0  # Simulação isolada: não grava cenário no banco operacional.
+    weather["id"] = 0  # Simulação isolada: não registra medição meteorológica.
     drainage = segment.get("drenagem") or {}
     analysis_data = {
         "trecho_id": dados.trecho_id,

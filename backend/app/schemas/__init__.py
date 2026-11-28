@@ -12,7 +12,16 @@ class DrenagemInput(BaseModel):
     capacidade_individual_l_s: float | None = Field(default=None, ge=0)
     capacidade_total_l_s: float | None = Field(default=None, ge=0)
     observacao: str | None = None
+    origem_dados: Literal["real", "mock", "manual", "desconhecido"] = "desconhecido"
 
+
+class DrenagemUpdateInput(BaseModel):
+    tipo: str | None = Field(default=None, min_length=1, max_length=50)
+    quantidade: int | None = Field(default=None, gt=0)
+    capacidade_individual_l_s: float | None = Field(default=None, ge=0)
+    capacidade_total_l_s: float | None = Field(default=None, ge=0)
+    observacao: str | None = None
+    origem_dados: Literal["real", "mock", "manual", "desconhecido"] | None = None
 
 class TrechoInput(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -28,6 +37,7 @@ class TrechoInput(BaseModel):
     estado_inclinacao: str | None = None
     pavimentacao: str | None = Field(default=None, max_length=50)
     estado_pavimento: str | None = Field(default=None, max_length=30)
+    origem_condicoes_pista: Literal["real", "mock", "manual", "desconhecido"] = "desconhecido"
     mtd_mm: float | None = Field(default=None, gt=0)
     caminho_escoamento_m: float | None = Field(default=None, gt=0)
     declividade_caminho_percentual: float | None = Field(default=None, gt=0, le=100)
@@ -64,10 +74,11 @@ class TrechoUpdateInput(BaseModel):
     estado_inclinacao: str | None = None
     pavimentacao: str | None = None
     estado_pavimento: str | None = None
+    origem_condicoes_pista: Literal["real", "mock", "manual", "desconhecido"] | None = None
     mtd_mm: float | None = Field(default=None, gt=0)
     caminho_escoamento_m: float | None = Field(default=None, gt=0)
     declividade_caminho_percentual: float | None = Field(default=None, gt=0, le=100)
-    drenagem: DrenagemInput | None = None
+    drenagem: DrenagemUpdateInput | None = None
     geometria: dict | None = None
     geometria_validada: bool | None = None
     origem_dados: str | None = None
@@ -89,6 +100,19 @@ class MedicaoMeteorologicaInput(BaseModel):
             raise ValueError("Informe precipitação acumulada e/ou intensidade de chuva")
         return self
 
+class MedicaoExternaInput(BaseModel):
+    fonte: Literal["INMET", "CEMADEN"]
+    trecho_id: int = Field(gt=0)
+    precipitacao_mm: float = Field(ge=0, lt=9999)
+    data_hora: datetime
+    estacao_id: int | None = Field(default=None, gt=0)
+    identificador_externo: str | None = Field(default=None, max_length=150)
+
+    @model_validator(mode="after")
+    def validar_data_hora(self):
+        if self.data_hora.tzinfo is None:
+            raise ValueError("Data e hora devem possuir fuso horário")
+        return self
 
 class EstacaoMeteorologicaInput(BaseModel):
     codigo_externo: str = Field(min_length=1, max_length=100)

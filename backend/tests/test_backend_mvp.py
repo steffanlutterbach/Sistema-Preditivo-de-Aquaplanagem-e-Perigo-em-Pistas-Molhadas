@@ -8,6 +8,8 @@ from urllib.parse import urlsplit
 import pytest
 
 from app.main import app
+from app.integrations.inmet import normalizar_observacao
+from app.integrations.cemaden import normalizar_observacao as normalizar_cemaden
 from app.repositories import resetar_mock
 from app.services.calculo_vazao import calcular_lamina_agua, calcular_vazao, calcular_volume
 
@@ -19,7 +21,11 @@ def request(method: str, path: str, payload: dict | None = None, headers: dict[s
         "type": "http", "asgi": {"version": "3.0"}, "http_version": "1.1",
         "method": method, "scheme": "http", "path": parsed.path, "raw_path": parsed.path.encode(),
         "query_string": parsed.query.encode(),
-        "headers": [(b"host", b"test"), *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items())],
+        "headers": [
+    (b"host", b"test"),
+    *(([(b"content-type", b"application/json")] if payload is not None else [])),
+    *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items()),
+],
         "client": ("test", 1234), "server": ("test", 80),
     }
     sent = []
@@ -59,11 +65,45 @@ def test_cadastrar_consultar_e_atualizar_segmento():
                "comprimento_m": 1000, "inclinacao_percentual": 2.0}
     status, created = request("POST", "/trechos", payload)
     assert status == 201 and created["codigo"] == "BR116-269"
+    assert created["origem_condicoes_pista"] == "desconhecido"
     status, fetched = request("GET", f"/trechos/{created['id']}")
     assert status == 200 and fetched["km_inicial"] == 269
     status, updated = request("PATCH", f"/trechos/{created['id']}", {"inclinacao_percentual": 3.1})
     assert status == 200 and updated["inclinacao_percentual"] == 3.1
     assert request("GET", f"/trechos/{created['id']}")[1]["inclinacao_percentual"] == 3.1
+
+
+def test_atualizar_drenagem_preserva_dados_e_recalcula_capacidade():
+    payload = {
+        "codigo": "BR116-270",
+        "rodovia_id": 1,
+        "km_inicial": 270,
+        "km_final": 271,
+        "drenagem": {
+            "tipo": "boca de lobo",
+            "quantidade": 10,
+            "capacidade_individual_l_s": 20,
+        },
+    }
+
+    status, created = request("POST", "/trechos", payload)
+    assert status == 201
+    assert created["drenagem"]["capacidade_total_l_s"] == 200
+
+    status, updated = request(
+        "PATCH",
+        f"/trechos/{created['id']}",
+        {"drenagem": {"capacidade_individual_l_s": 30}},
+    )
+    print("ERRO DO PATCH:", updated)
+
+    assert status == 200
+    assert updated["drenagem"]["quantidade"] == 10
+    assert updated["drenagem"]["capacidade_individual_l_s"] == 30
+    assert updated["drenagem"]["capacidade_total_l_s"] == 300
+    assert updated["drenagem"]["tipo"] == "boca de lobo"
+    assert updated["drenagem"]["origem_dados"] == "desconhecido"
+
 
 
 def test_validacao_intervalo_geometria_e_coordenadas():
@@ -90,6 +130,28 @@ def test_meteorologia_e_identificada_e_duplicidade_rejeitada():
     listed = request("GET", "/meteorologia?trecho_id=1")[1]
     assert listed[0]["dados_desatualizados"] is False
 
+def test_analise_preserva_rastreabilidade_dos_dados():
+    payload = {
+        "trecho_id": 1,
+        "fonte": "MOCK_RASTREABILIDADE",
+        "precipitacao_mm": 5,
+        "intensidade_mm_h": 5,
+        "data_hora": datetime.now(timezone.utc).isoformat(),
+    }
+
+    status, weather = request("POST", "/meteorologia", payload)
+    assert status == 200
+    assert weather["modo_dados"] == "mock"
+
+    status, analysis = request("POST", "/analises", {"trecho_id": 1})
+    assert status == 200
+
+    used = analysis["dados_utilizados"]
+
+    assert used["fonte_meteorologia"] == "MOCK_RASTREABILIDADE"
+    assert used["modo_meteorologia"] == "mock"
+    assert used["origem_trecho"] == "simulado_fornecido_pelo_usuario"
+    assert used["geometria_validada"] is False
 
 def test_dados_meteorologicos_antigos_sao_marcados_e_nao_classificados():
     old = (datetime.now(timezone.utc) - timedelta(hours=3)).isoformat()
@@ -122,15 +184,24 @@ def test_faltam_dados_obrigatorios_sem_classificacao():
     assert "precipitacao_acumulada" in analysis["dados_ausentes"]
 
 
-def test_wd_e_condicional_e_inclinacao_percentual_e_usada_como_s():
+def test_wd_fica_ausente_sem_declividade_do_caminho():
     value = calcular_lamina_agua(0.55, 11.2, 20, 1.5)
     assert value >= 0
+
     with pytest.raises(ValueError):
         calcular_lamina_agua(0.55, 11.2, 20, 0)
-    status, result = request("POST", "/simulacoes", {"cenario_id": 2, "trecho_id": 2})
-    assert status == 200 and result["resultado"]["wd_mm"] is not None
-    assert result["resultado"]["wd_status"] == "calculada_condicionalmente"
-    assert result["resultado"]["dados_utilizados"]["wd_declividade_origem"] == "inclinacao_percentual"
+
+    status, result = request(
+        "POST",
+        "/simulacoes",
+        {"cenario_id": 2, "trecho_id": 2},
+    )
+
+    assert status == 200
+    assert result["resultado"]["wd_mm"] is None
+    assert result["resultado"]["wd_status"] == "indisponivel_parametros_ausentes"
+    assert result["resultado"]["dados_utilizados"]["wd_declividade_origem"] is None
+    assert "declividade_caminho_percentual" in result["resultado"]["wd_dados_ausentes"]
 
 
 def test_wd_calcula_quando_declividade_do_caminho_esta_disponivel():
@@ -139,6 +210,7 @@ def test_wd_calcula_quando_declividade_do_caminho_esta_disponivel():
     status, result = request("POST", "/simulacoes", {"cenario_id": 2, "trecho_id": 2})
     assert status == 200
     assert result["resultado"]["wd_mm"] is not None
+    assert result["resultado"]["wd_mm"] == pytest.approx(0.7927, abs=0.0001)
     assert result["resultado"]["dados_utilizados"]["wd_declividade_origem"] == "declividade_caminho_percentual"
 
 
@@ -257,3 +329,181 @@ def test_migrations_preservam_tabelas_e_incluem_cinco_segmentos():
     assert "DROP TABLE" not in migration.upper()
     assert "DROP TABLE" not in schema_changes.upper()
     assert "ADD COLUMN IF NOT EXISTS" in schema_changes
+
+
+def test_normalizar_drenagem_calcula_capacidade_total():
+    from app.repositories import _normalizar_drenagem
+
+    resultado = _normalizar_drenagem({
+        "tipo": "boca de lobo",
+        "quantidade": 20,
+        "capacidade_individual_l_s": 30,
+    })
+
+    assert resultado["capacidade_total_l_s"] == 600
+
+
+def test_normalizar_drenagem_preserva_capacidade_total_antiga():
+    from app.repositories import _normalizar_drenagem
+
+    resultado = _normalizar_drenagem({
+        "tipo": "boca de lobo",
+        "quantidade": 2,
+        "capacidade_total_l_s": 100,
+    })
+
+    assert resultado["capacidade_total_l_s"] == 100
+
+
+def test_normalizar_drenagem_prioriza_calculo_automatico():
+    from app.repositories import _normalizar_drenagem
+
+    resultado = _normalizar_drenagem({
+        "quantidade": 10,
+        "capacidade_individual_l_s": 20,
+        "capacidade_total_l_s": 500,
+    })
+
+    assert resultado["capacidade_total_l_s"] == 200
+
+def test_normalizar_observacao_inmet():
+    dados = {
+        "precipitacao_mm": 12.5,
+        "data_hora": datetime.now(timezone.utc).isoformat(),
+        "identificador_externo": "TESTE-001",
+    }
+
+    resultado = normalizar_observacao(dados, trecho_id=1, estacao_id=2)
+
+    assert resultado["fonte"] == "INMET"
+    assert resultado["trecho_id"] == 1
+    assert resultado["estacao_id"] == 2
+    assert resultado["precipitacao_mm"] == 12.5
+    assert resultado["intensidade_mm_h"] is None
+    assert resultado["identificador_externo"] == "TESTE-001"
+
+
+@pytest.mark.parametrize(
+    "dados",
+    [
+        {"precipitacao_mm": None, "data_hora": "2026-11-28T03:00:00+00:00"},
+        {"precipitacao_mm": "9999", "data_hora": "2026-11-28T03:00:00+00:00"},
+        {"precipitacao_mm": "texto", "data_hora": "2026-11-28T03:00:00+00:00"},
+        {"precipitacao_mm": 12.5, "data_hora": "data-invalida"},
+        {"precipitacao_mm": 12.5, "data_hora": "2026-11-28T03:00:00"},
+    ],
+)
+def test_normalizar_observacao_inmet_rejeita_dados_invalidos(dados):
+    with pytest.raises(ValueError):
+        normalizar_observacao(dados, trecho_id=1)
+
+def test_normalizar_observacao_cemaden():
+    dados = {
+        "precipitacao_mm": 8.5,
+        "data_hora": datetime.now(timezone.utc).isoformat(),
+        "identificador_externo": "CEMADEN-TESTE-001",
+    }
+
+    resultado = normalizar_cemaden(dados, trecho_id=1, estacao_id=1)
+
+    assert resultado["fonte"] == "CEMADEN"
+    assert resultado["trecho_id"] == 1
+    assert resultado["estacao_id"] == 1
+    assert resultado["precipitacao_mm"] == 8.5
+    assert resultado["intensidade_mm_h"] is None
+    assert resultado["identificador_externo"] == "CEMADEN-TESTE-001"
+
+
+@pytest.mark.parametrize(
+    "dados",
+    [
+        {"precipitacao_mm": None, "data_hora": "2026-11-28T03:00:00+00:00"},
+        {"precipitacao_mm": "9999", "data_hora": "2026-11-28T03:00:00+00:00"},
+        {"precipitacao_mm": "texto", "data_hora": "2026-11-28T03:00:00+00:00"},
+        {"precipitacao_mm": 8.5, "data_hora": "data-invalida"},
+        {"precipitacao_mm": 8.5, "data_hora": "2026-11-28T03:00:00"},
+    ],
+)
+def test_normalizar_observacao_cemaden_rejeita_dados_invalidos(dados):
+    with pytest.raises(ValueError):
+        normalizar_cemaden(dados, trecho_id=1)
+
+def test_rota_externa_normaliza_medicao_inmet():
+    payload = {
+        "fonte": "INMET",
+        "trecho_id": 1,
+        "precipitacao_mm": 12.5,
+        "data_hora": datetime.now(timezone.utc).isoformat(),
+    }
+
+    status, resultado = request(
+        "POST",
+        "/meteorologia/externa",
+        payload,
+    )
+
+    assert status == 200
+    assert resultado["fonte"] == "INMET"
+    assert resultado["precipitacao_mm"] == 12.5
+    assert resultado["intensidade_mm_h"] is None
+    assert resultado["modo_dados"] == "mock"
+
+def test_rota_externa_normaliza_medicao_cemaden():
+    payload = {
+        "fonte": "CEMADEN",
+        "trecho_id": 1,
+        "precipitacao_mm": 8.5,
+        "data_hora": datetime.now(timezone.utc).isoformat(),
+    }
+
+    status, resultado = request(
+        "POST",
+        "/meteorologia/externa",
+        payload,
+    )
+
+    assert status == 200
+    assert resultado["fonte"] == "CEMADEN"
+    assert resultado["precipitacao_mm"] == 8.5
+    assert resultado["intensidade_mm_h"] is None
+    assert resultado["modo_dados"] == "mock"
+
+def test_rota_externa_rejeita_fonte_nao_suportada():
+    payload = {
+        "fonte": "FONTE_TESTE",
+        "trecho_id": 1,
+        "precipitacao_mm": 10,
+        "data_hora": datetime.now(timezone.utc).isoformat(),
+    }
+
+    status, resultado = request(
+        "POST",
+        "/meteorologia/externa",
+        payload,
+    )
+
+    assert status == 422
+
+def test_rota_externa_rejeita_medicao_duplicada():
+    payload = {
+        "fonte": "INMET",
+        "trecho_id": 1,
+        "precipitacao_mm": 15,
+        "data_hora": datetime.now(timezone.utc).isoformat(),
+    }
+
+    primeiro_status, _ = request(
+        "POST",
+        "/meteorologia/externa",
+        payload,
+    )
+
+    segundo_status, resultado = request(
+        "POST",
+        "/meteorologia/externa",
+        payload,
+    )
+
+    assert primeiro_status == 200
+    assert segundo_status == 409
+    assert "duplicada" in resultado["detail"].lower()

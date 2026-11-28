@@ -39,7 +39,10 @@ CREATE TABLE condicoes_pista (
     pavimentacao VARCHAR(50),
     estado_pavimento VARCHAR(30),
     observacoes TEXT,
-    data_inspecao TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    data_inspecao TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    origem_dados VARCHAR(20) NOT NULL DEFAULT 'desconhecido',
+    CONSTRAINT chk_condicoes_pista_origem
+        CHECK (origem_dados IN ('real', 'mock', 'manual', 'desconhecido'))
 );
 
 CREATE TABLE fontes_dados (
@@ -73,11 +76,15 @@ CREATE TABLE drenagem (
     quantidade INTEGER NOT NULL DEFAULT 1,
     capacidade_individual DECIMAL(12, 3),
     capacidade_total DECIMAL(12, 3),
+    observacao TEXT,
+    origem_dados VARCHAR(20) NOT NULL DEFAULT 'desconhecido',
     CONSTRAINT chk_drenagem_quantidade CHECK (quantidade > 0),
     CONSTRAINT chk_drenagem_capacidades CHECK (
         (capacidade_individual IS NULL OR capacidade_individual >= 0)
         AND (capacidade_total IS NULL OR capacidade_total >= 0)
-    )
+    ),
+    CONSTRAINT chk_drenagem_origem
+        CHECK (origem_dados IN ('real', 'mock', 'manual', 'desconhecido'))
 );
 
 CREATE TABLE analises_risco (

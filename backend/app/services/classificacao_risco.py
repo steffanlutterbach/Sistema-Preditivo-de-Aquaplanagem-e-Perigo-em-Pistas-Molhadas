@@ -67,10 +67,11 @@ def analisar_trecho(dados: dict[str, Any], persistir: bool = True) -> dict[str, 
     mtd = dados.get("mtd_mm")
     path_length = dados.get("caminho_escoamento_m")
     path_slope_pct = dados.get("declividade_caminho_percentual")
-    wd_slope_source = "declividade_caminho_percentual"
-    if path_slope_pct is None:
-        path_slope_pct = dados.get("inclinacao_percentual")
-        wd_slope_source = "inclinacao_percentual" if path_slope_pct is not None else None
+    wd_slope_source = (
+        "declividade_caminho_percentual"
+        if path_slope_pct is not None
+        else None
+    )
     wd = None
     wd_missing = [name for name, value in (("mtd_mm", mtd), ("caminho_escoamento_m", path_length),
                                           ("declividade_caminho_percentual", path_slope_pct),
@@ -119,6 +120,11 @@ def analisar_trecho(dados: dict[str, Any], persistir: bool = True) -> dict[str, 
             "declividade_caminho_percentual": path_slope_pct,
             "wd_declividade_origem": wd_slope_source,
             "origem_dados": origin,
+            "fonte_meteorologia": dados.get("fonte_meteorologia", "desconhecida"),
+            "modo_meteorologia": dados.get("modo_meteorologia", "desconhecido"),
+            "origem_trecho": dados.get("origem_trecho", "desconhecida"),
+            "origem_geometria": dados.get("origem_geometria"),
+            "geometria_validada": dados.get("geometria_validada", False),
             "medicao_data_hora": measured_at.isoformat(),
         },
         "versao_algoritmo": VERSAO_ALGORITMO,

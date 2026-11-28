@@ -67,8 +67,13 @@ def executar_analise(dados: AnaliseRiscoInput):
         "drenagem": drainage,
         "mtd_mm": trecho.get("mtd_mm"),
         "caminho_escoamento_m": trecho.get("caminho_escoamento_m"),
-        "declividade_caminho_percentual": trecho.get("declividade_caminho_percentual"),
+        "declividade_caminho_percentual": trecho.get("declividade_caminho_percentual"),        
         "origem_dados": weather.get("modo_dados", "mock" if DATA_MODE == "mock" else "real"),
+        "fonte_meteorologia": weather.get("fonte", "desconhecida"),
+        "modo_meteorologia": weather.get("modo_dados", "desconhecido"),
+        "origem_trecho": trecho.get("origem_dados", "desconhecida"),
+        "origem_geometria": trecho.get("origem_geometria"),
+        "geometria_validada": trecho.get("geometria_validada", False),
     }
     try:
         return analisar_trecho(analysis_input)

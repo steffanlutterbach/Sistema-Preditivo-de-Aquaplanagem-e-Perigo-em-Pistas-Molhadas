@@ -1,9 +1,15 @@
 """Rotas de dados meteorológicos."""
 
 from fastapi import APIRouter, HTTPException
+from app.integrations.meteorologia import normalizar_observacao
 from app.core.config import DATA_MODE
 from app.repositories import associar_estacao, criar_estacao, listar_estacoes, listar_medicoes, listar_trechos, registrar_medicao
-from app.schemas import AssociacaoEstacaoInput, EstacaoMeteorologicaInput, MedicaoMeteorologicaInput
+from app.schemas import (
+    AssociacaoEstacaoInput,
+    EstacaoMeteorologicaInput,
+    MedicaoMeteorologicaInput,
+    MedicaoExternaInput,
+)
 
 router = APIRouter(prefix="/meteorologia", tags=["meteorologia"])
 
@@ -25,6 +31,52 @@ def registrar_meteorologia(dados: MedicaoMeteorologicaInput):
     medicao["data_hora"] = dados.data_hora
     try:
         return registrar_medicao(medicao)
+    except ValueError as erro:
+        raise HTTPException(status_code=409, detail=str(erro)) from erro
+
+@router.post("/externa")
+def registrar_meteorologia_externa(dados: MedicaoExternaInput):
+    if not any(
+        trecho["id"] == dados.trecho_id
+        for trecho in listar_trechos()
+    ):
+        raise HTTPException(status_code=404, detail="Trecho não encontrado")
+
+    if dados.estacao_id is not None:
+        station = next(
+            (
+                item for item in listar_estacoes(dados.trecho_id)
+                if item.get("id") == dados.estacao_id
+            ),
+            None,
+        )
+
+        if station is None:
+            raise HTTPException(
+                status_code=422,
+                detail="Estação não associada ao trecho",
+            )
+
+        if station.get("status_associacao") != "validada":
+            raise HTTPException(
+                status_code=422,
+                detail="Associação da estação ainda não foi validada",
+            )
+
+    try:
+        medicao = normalizar_observacao(
+            fonte=dados.fonte,
+            dados={
+                "precipitacao_mm": dados.precipitacao_mm,
+                "data_hora": dados.data_hora,
+                "identificador_externo": dados.identificador_externo,
+            },
+            trecho_id=dados.trecho_id,
+            estacao_id=dados.estacao_id,
+        )
+
+        return registrar_medicao(medicao)
+
     except ValueError as erro:
         raise HTTPException(status_code=409, detail=str(erro)) from erro
 
