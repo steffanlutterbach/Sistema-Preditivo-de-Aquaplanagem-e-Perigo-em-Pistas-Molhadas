@@ -1,0 +1,27 @@
+# Índice de evidências manuais
+
+Capturas reais do Swagger e JSON fornecidos pelo responsável pelo projeto.
+
+- [VM-01_health.png](VM-01_health.png)
+- [VM-02_trechos.png](VM-02_trechos.png)
+- [VM-02_trechos_resposta.json](VM-02_trechos_resposta.json)
+- [VM-03_cenarios_01.png](VM-03_cenarios_01.png)
+- [VM-03_cenarios_02.png](VM-03_cenarios_02.png)
+- [VM-04_risco_baixo_01.png](VM-04_risco_baixo_01.png)
+- [VM-04_risco_baixo_02.png](VM-04_risco_baixo_02.png)
+- [VM-04_risco_baixo_03.png](VM-04_risco_baixo_03.png)
+- [VM-05_risco_moderado_01.png](VM-05_risco_moderado_01.png)
+- [VM-05_risco_moderado_02.png](VM-05_risco_moderado_02.png)
+- [VM-05_risco_moderado_03.png](VM-05_risco_moderado_03.png)
+- [VM-06_risco_alto_01.png](VM-06_risco_alto_01.png)
+- [VM-06_risco_alto_02.png](VM-06_risco_alto_02.png)
+- [VM-06_risco_alto_03.png](VM-06_risco_alto_03.png)
+- [VM-07B_duplicidade.png](VM-07B_duplicidade.png)
+- [VM-07_alertas.png](VM-07_alertas.png)
+- [VM-08_localizacao_01.png](VM-08_localizacao_01.png)
+- [VM-08_localizacao_02.png](VM-08_localizacao_02.png)
+- [VM-08_localizacao_03.png](VM-08_localizacao_03.png)
+- [VM-08_localizacao_04.png](VM-08_localizacao_04.png)
+- [VM-08_localizacao_05.png](VM-08_localizacao_05.png)
+- [VM-09_dados_invalidos.png](VM-09_dados_invalidos.png)
+- [VM-10_trecho_inexistente.png](VM-10_trecho_inexistente.png)

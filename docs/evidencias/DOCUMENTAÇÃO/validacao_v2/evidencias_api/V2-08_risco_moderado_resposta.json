@@ -1,0 +1,84 @@
+{
+  "modo_dados": "mock",
+  "persistida": true,
+  "cenario": {
+    "id": 2,
+    "nome": "Chuva moderada",
+    "trecho_id": 1,
+    "fonte": "MOCK_LOCAL",
+    "precipitacao_mm": 20,
+    "intensidade_mm_h": 20,
+    "data_hora": "2026-11-25T10:15:00-03:00",
+    "estado_pavimento": "regular",
+    "drenagem": {
+      "quantidade": 4,
+      "capacidade_individual_l_s": 80,
+      "capacidade_total_l_s": 320
+    },
+    "risco_esperado": "moderado"
+  },
+  "trecho": {
+    "id": 2,
+    "codigo": "BR116-265",
+    "km_inicial": 265,
+    "km_final": 266
+  },
+  "resultado": {
+    "trecho_id": 2,
+    "dados_clima_id": 3,
+    "vazao_estimada_l_s": 52.5,
+    "volume_acumulado_l": 189000,
+    "pontuacao_risco": 55,
+    "nivel_risco": "moderado",
+    "status_analise": "concluida",
+    "data_analise": "2026-11-28T06:07:15.074678+00:00",
+    "dados_utilizados": {
+      "intensidade_mm_h": 20,
+      "precipitacao_mm": 20,
+      "estado_pavimento": "regular",
+      "inclinacao_percentual": 1.5,
+      "estado_inclinacao": "longitudinal; verificar em levantamento",
+      "area_contribuicao_m2": 10500,
+      "coeficiente_escoamento": 0.9,
+      "capacidade_drenagem_l_s": 400,
+      "drenagem_suficiente": true,
+      "mtd_mm": 0.55,
+      "caminho_escoamento_m": 11.2,
+      "declividade_caminho_percentual": null,
+      "wd_declividade_origem": null,
+      "origem_dados": "mock",
+      "fonte_meteorologia": "desconhecida",
+      "modo_meteorologia": "desconhecido",
+      "origem_trecho": "desconhecida",
+      "origem_geometria": null,
+      "geometria_validada": false,
+      "medicao_data_hora": "2026-11-28T06:07:15.074678+00:00"
+    },
+    "versao_algoritmo": "risk-v1-experimental",
+    "origem_dados": "mock",
+    "dados_ausentes": [
+      "declividade_caminho_percentual"
+    ],
+    "dados_desatualizados": false,
+    "classificacao_disponivel": true,
+    "classificacao_confiavel": false,
+    "wd_mm": null,
+    "wd_status": "indisponivel_parametros_ausentes",
+    "wd_dados_ausentes": [
+      "declividade_caminho_percentual"
+    ],
+    "observacao": "Classificação experimental para demonstração; não é previsão validada nem orientação de condução.",
+    "id": 3,
+    "alerta": {
+      "id": 1,
+      "trecho_id": 2,
+      "analise_id": 3,
+      "nivel": "moderado",
+      "mensagem": "AquaSafe: risco moderado de aquaplanagem no segmento 2. Reduza a velocidade com segurança e redobre a atenção.",
+      "status": "ativo",
+      "data_hora": "2026-11-28T06:07:15.074678+00:00",
+      "validade": "2026-11-28T06:37:15.074678+00:00",
+      "chave_deduplicacao": "trecho:2"
+    }
+  }
+}

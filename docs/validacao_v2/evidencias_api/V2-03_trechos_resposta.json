@@ -1,0 +1,1442 @@
+[
+  {
+    "id": 1,
+    "codigo": "BR116-264",
+    "rodovia_id": 1,
+    "km_inicial": 264,
+    "km_final": 265,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.85,
+    "inclinacao_percentual": 3.5,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "bom",
+    "mtd_mm": 0.8,
+    "caminho_escoamento_m": 10.8,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Boca de lobo simples",
+      "quantidade": 20,
+      "capacidade_individual_l_s": 30,
+      "capacidade_total_l_s": 600
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.734227,
+        "latitude": -23.5930437
+      },
+      "fim": {
+        "longitude": -46.7412437,
+        "latitude": -23.5988168
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.734227,
+          -23.5930437
+        ],
+        [
+          -46.7342814,
+          -23.5930667
+        ],
+        [
+          -46.7344483,
+          -23.5931448
+        ],
+        [
+          -46.7347443,
+          -23.593254
+        ],
+        [
+          -46.7350616,
+          -23.59337
+        ],
+        [
+          -46.7351371,
+          -23.5933988
+        ],
+        [
+          -46.7352732,
+          -23.5934491
+        ],
+        [
+          -46.7353928,
+          -23.5935082
+        ],
+        [
+          -46.7355022,
+          -23.5935596
+        ],
+        [
+          -46.7355949,
+          -23.5936033
+        ],
+        [
+          -46.7357722,
+          -23.5936868
+        ],
+        [
+          -46.7359383,
+          -23.5937897
+        ],
+        [
+          -46.7361706,
+          -23.5939532
+        ],
+        [
+          -46.7362348,
+          -23.5939951
+        ],
+        [
+          -46.7363218,
+          -23.5940383
+        ],
+        [
+          -46.7364882,
+          -23.5941091
+        ],
+        [
+          -46.7368739,
+          -23.5942732
+        ],
+        [
+          -46.7370495,
+          -23.5943479
+        ],
+        [
+          -46.7376195,
+          -23.5946132
+        ],
+        [
+          -46.737877,
+          -23.5947331
+        ],
+        [
+          -46.7380661,
+          -23.5948211
+        ],
+        [
+          -46.7382029,
+          -23.5948826
+        ],
+        [
+          -46.7384852,
+          -23.5950134
+        ],
+        [
+          -46.7388171,
+          -23.5951843
+        ],
+        [
+          -46.7389196,
+          -23.5952739
+        ],
+        [
+          -46.7390333,
+          -23.5953871
+        ],
+        [
+          -46.7391364,
+          -23.5955432
+        ],
+        [
+          -46.7391616,
+          -23.5955813
+        ],
+        [
+          -46.7391835,
+          -23.5956144
+        ],
+        [
+          -46.7392293,
+          -23.5956757
+        ],
+        [
+          -46.7394346,
+          -23.5959773
+        ],
+        [
+          -46.7394908,
+          -23.5960594
+        ],
+        [
+          -46.739546,
+          -23.5961402
+        ],
+        [
+          -46.7396342,
+          -23.5962669
+        ],
+        [
+          -46.7396634,
+          -23.5963088
+        ],
+        [
+          -46.7397318,
+          -23.5964071
+        ],
+        [
+          -46.7398452,
+          -23.59657
+        ],
+        [
+          -46.7398766,
+          -23.5966152
+        ],
+        [
+          -46.739917,
+          -23.5966732
+        ],
+        [
+          -46.7401935,
+          -23.5970704
+        ],
+        [
+          -46.7407825,
+          -23.5980011
+        ],
+        [
+          -46.7408243,
+          -23.5980764
+        ],
+        [
+          -46.7408676,
+          -23.5981377
+        ],
+        [
+          -46.7409109,
+          -23.598199
+        ],
+        [
+          -46.7409924,
+          -23.5983808
+        ],
+        [
+          -46.7410426,
+          -23.5984684
+        ],
+        [
+          -46.7411024,
+          -23.598572
+        ],
+        [
+          -46.7411576,
+          -23.5986676
+        ],
+        [
+          -46.7412437,
+          -23.5988168
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados."
+  },
+  {
+    "id": 2,
+    "codigo": "BR116-265",
+    "rodovia_id": 1,
+    "km_inicial": 265,
+    "km_final": 266,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.9,
+    "inclinacao_percentual": 1.5,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.55,
+    "caminho_escoamento_m": 11.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Boca de lobo simples",
+      "quantidade": 16,
+      "capacidade_individual_l_s": 25,
+      "capacidade_total_l_s": 400
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.7412437,
+        "latitude": -23.5988168
+      },
+      "fim": {
+        "longitude": -46.747226,
+        "latitude": -23.6058408
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.7412437,
+          -23.5988168
+        ],
+        [
+          -46.7413293,
+          -23.5989651
+        ],
+        [
+          -46.741344,
+          -23.5989906
+        ],
+        [
+          -46.741412,
+          -23.5990975
+        ],
+        [
+          -46.7414746,
+          -23.5991958
+        ],
+        [
+          -46.7415781,
+          -23.5993586
+        ],
+        [
+          -46.7416727,
+          -23.5994907
+        ],
+        [
+          -46.7417854,
+          -23.5996316
+        ],
+        [
+          -46.7418452,
+          -23.5997064
+        ],
+        [
+          -46.7420901,
+          -23.6000124
+        ],
+        [
+          -46.7422455,
+          -23.6002066
+        ],
+        [
+          -46.7424846,
+          -23.6005054
+        ],
+        [
+          -46.7425484,
+          -23.6005852
+        ],
+        [
+          -46.7426419,
+          -23.6006988
+        ],
+        [
+          -46.742827,
+          -23.6009239
+        ],
+        [
+          -46.7429214,
+          -23.6010355
+        ],
+        [
+          -46.7431237,
+          -23.6012501
+        ],
+        [
+          -46.7432349,
+          -23.6013598
+        ],
+        [
+          -46.7432803,
+          -23.6014046
+        ],
+        [
+          -46.7435512,
+          -23.6016774
+        ],
+        [
+          -46.7437202,
+          -23.6018569
+        ],
+        [
+          -46.7438347,
+          -23.6019971
+        ],
+        [
+          -46.7439931,
+          -23.6021902
+        ],
+        [
+          -46.7440023,
+          -23.6022005
+        ],
+        [
+          -46.7441526,
+          -23.6023958
+        ],
+        [
+          -46.7443102,
+          -23.6026188
+        ],
+        [
+          -46.7443383,
+          -23.6026587
+        ],
+        [
+          -46.7444038,
+          -23.6027608
+        ],
+        [
+          -46.7445194,
+          -23.6029529
+        ],
+        [
+          -46.7445828,
+          -23.6030691
+        ],
+        [
+          -46.7447433,
+          -23.6033637
+        ],
+        [
+          -46.7448279,
+          -23.6035356
+        ],
+        [
+          -46.7449401,
+          -23.603714
+        ],
+        [
+          -46.7450526,
+          -23.6039061
+        ],
+        [
+          -46.7451783,
+          -23.6040738
+        ],
+        [
+          -46.7453314,
+          -23.6043347
+        ],
+        [
+          -46.7454594,
+          -23.6044848
+        ],
+        [
+          -46.7456204,
+          -23.6046525
+        ],
+        [
+          -46.7457824,
+          -23.6048181
+        ],
+        [
+          -46.7458988,
+          -23.6049324
+        ],
+        [
+          -46.7462563,
+          -23.6052317
+        ],
+        [
+          -46.7464275,
+          -23.605354
+        ],
+        [
+          -46.7465915,
+          -23.6054723
+        ],
+        [
+          -46.7466799,
+          -23.6055236
+        ],
+        [
+          -46.746971,
+          -23.6056927
+        ],
+        [
+          -46.7471039,
+          -23.6057699
+        ],
+        [
+          -46.7471201,
+          -23.6057793
+        ],
+        [
+          -46.7471785,
+          -23.6058132
+        ],
+        [
+          -46.747226,
+          -23.6058408
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados."
+  },
+  {
+    "id": 3,
+    "codigo": "BR116-266",
+    "rodovia_id": 1,
+    "km_inicial": 266,
+    "km_final": 267,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.95,
+    "inclinacao_percentual": 0.8,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "irregular",
+    "mtd_mm": 0.35,
+    "caminho_escoamento_m": 12,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Grelha de sarjeta / Boca de lobo",
+      "quantidade": 12,
+      "capacidade_individual_l_s": 15,
+      "capacidade_total_l_s": 180,
+      "observacao": "Capacidade informada como parcialmente obstruída; não medida em campo."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.747226,
+        "latitude": -23.6058408
+      },
+      "fim": {
+        "longitude": -46.7558914,
+        "latitude": -23.6088104
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.747226,
+          -23.6058408
+        ],
+        [
+          -46.7472914,
+          -23.6058788
+        ],
+        [
+          -46.7475352,
+          -23.6060075
+        ],
+        [
+          -46.7478005,
+          -23.6061141
+        ],
+        [
+          -46.7481584,
+          -23.6062451
+        ],
+        [
+          -46.7484241,
+          -23.6063229
+        ],
+        [
+          -46.748882,
+          -23.6064339
+        ],
+        [
+          -46.7489454,
+          -23.6064278
+        ],
+        [
+          -46.7490269,
+          -23.6064191
+        ],
+        [
+          -46.7490986,
+          -23.6064087
+        ],
+        [
+          -46.749161,
+          -23.6063915
+        ],
+        [
+          -46.7492241,
+          -23.6063774
+        ],
+        [
+          -46.7493106,
+          -23.6063491
+        ],
+        [
+          -46.7494419,
+          -23.6062858
+        ],
+        [
+          -46.7494635,
+          -23.6062754
+        ],
+        [
+          -46.7495859,
+          -23.6062035
+        ],
+        [
+          -46.7496405,
+          -23.6061715
+        ],
+        [
+          -46.7497759,
+          -23.6061291
+        ],
+        [
+          -46.7498805,
+          -23.6061126
+        ],
+        [
+          -46.750018,
+          -23.6061107
+        ],
+        [
+          -46.7501307,
+          -23.6061291
+        ],
+        [
+          -46.750246,
+          -23.6061617
+        ],
+        [
+          -46.7504297,
+          -23.6062281
+        ],
+        [
+          -46.7505024,
+          -23.6062549
+        ],
+        [
+          -46.7506337,
+          -23.6063027
+        ],
+        [
+          -46.7507449,
+          -23.6063381
+        ],
+        [
+          -46.7508374,
+          -23.6063614
+        ],
+        [
+          -46.7509418,
+          -23.6063921
+        ],
+        [
+          -46.7510884,
+          -23.6064232
+        ],
+        [
+          -46.7512028,
+          -23.606445
+        ],
+        [
+          -46.7513101,
+          -23.6064689
+        ],
+        [
+          -46.7513986,
+          -23.6064953
+        ],
+        [
+          -46.7514904,
+          -23.6065328
+        ],
+        [
+          -46.7515923,
+          -23.6065969
+        ],
+        [
+          -46.751661,
+          -23.6066654
+        ],
+        [
+          -46.7517088,
+          -23.6067183
+        ],
+        [
+          -46.7517504,
+          -23.6067781
+        ],
+        [
+          -46.7517681,
+          -23.6068192
+        ],
+        [
+          -46.7518258,
+          -23.6069285
+        ],
+        [
+          -46.7518701,
+          -23.6070514
+        ],
+        [
+          -46.7518853,
+          -23.607077
+        ],
+        [
+          -46.7519505,
+          -23.6072112
+        ],
+        [
+          -46.7519995,
+          -23.6072726
+        ],
+        [
+          -46.7520699,
+          -23.6073279
+        ],
+        [
+          -46.7521889,
+          -23.6073933
+        ],
+        [
+          -46.7522295,
+          -23.6074188
+        ],
+        [
+          -46.7524226,
+          -23.6075331
+        ],
+        [
+          -46.7526031,
+          -23.607651
+        ],
+        [
+          -46.7528799,
+          -23.6078317
+        ],
+        [
+          -46.7529939,
+          -23.6078981
+        ],
+        [
+          -46.753126,
+          -23.6079768
+        ],
+        [
+          -46.7532943,
+          -23.6080585
+        ],
+        [
+          -46.7534814,
+          -23.6081322
+        ],
+        [
+          -46.7537201,
+          -23.608217
+        ],
+        [
+          -46.7537752,
+          -23.6082345
+        ],
+        [
+          -46.7539339,
+          -23.6082849
+        ],
+        [
+          -46.7539611,
+          -23.6082931
+        ],
+        [
+          -46.7545342,
+          -23.6085119
+        ],
+        [
+          -46.7548078,
+          -23.6085924
+        ],
+        [
+          -46.7551356,
+          -23.6086791
+        ],
+        [
+          -46.7553024,
+          -23.6087162
+        ],
+        [
+          -46.7555902,
+          -23.6087874
+        ],
+        [
+          -46.7557023,
+          -23.6087921
+        ],
+        [
+          -46.7558914,
+          -23.6088104
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados."
+  },
+  {
+    "id": 4,
+    "codigo": "BR116-267",
+    "rodovia_id": 1,
+    "km_inicial": 267,
+    "km_final": 268,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.88,
+    "inclinacao_percentual": 4.2,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.6,
+    "caminho_escoamento_m": 11,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Boca de lobo simples",
+      "quantidade": 18,
+      "capacidade_individual_l_s": 28,
+      "capacidade_total_l_s": 504
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.7558914,
+        "latitude": -23.6088104
+      },
+      "fim": {
+        "longitude": -46.7653527,
+        "latitude": -23.6074064
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.7558914,
+          -23.6088104
+        ],
+        [
+          -46.756057,
+          -23.6088265
+        ],
+        [
+          -46.7562226,
+          -23.608829
+        ],
+        [
+          -46.7565049,
+          -23.6088142
+        ],
+        [
+          -46.7569301,
+          -23.6087958
+        ],
+        [
+          -46.7574082,
+          -23.6087442
+        ],
+        [
+          -46.7575117,
+          -23.608728
+        ],
+        [
+          -46.7575585,
+          -23.6087224
+        ],
+        [
+          -46.757608,
+          -23.6087141
+        ],
+        [
+          -46.7580749,
+          -23.6086288
+        ],
+        [
+          -46.7585863,
+          -23.6085629
+        ],
+        [
+          -46.7591697,
+          -23.6084658
+        ],
+        [
+          -46.7594995,
+          -23.6083916
+        ],
+        [
+          -46.7595961,
+          -23.6083667
+        ],
+        [
+          -46.7601341,
+          -23.6081832
+        ],
+        [
+          -46.7604115,
+          -23.6080904
+        ],
+        [
+          -46.761522,
+          -23.607613
+        ],
+        [
+          -46.7619699,
+          -23.6073881
+        ],
+        [
+          -46.7622086,
+          -23.6072984
+        ],
+        [
+          -46.7624527,
+          -23.6072321
+        ],
+        [
+          -46.7628832,
+          -23.6071522
+        ],
+        [
+          -46.763303,
+          -23.607135
+        ],
+        [
+          -46.76383,
+          -23.6071657
+        ],
+        [
+          -46.7639216,
+          -23.6071794
+        ],
+        [
+          -46.7644457,
+          -23.6072571
+        ],
+        [
+          -46.7646656,
+          -23.6072933
+        ],
+        [
+          -46.7653527,
+          -23.6074064
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados."
+  },
+  {
+    "id": 5,
+    "codigo": "BR116-268",
+    "rodovia_id": 1,
+    "km_inicial": 268,
+    "km_final": 269,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.9,
+    "inclinacao_percentual": 2.1,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.5,
+    "caminho_escoamento_m": 11.5,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Boca de lobo simples",
+      "quantidade": 15,
+      "capacidade_individual_l_s": 22,
+      "capacidade_total_l_s": 330
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.7653527,
+        "latitude": -23.6074064
+      },
+      "fim": {
+        "longitude": -46.7743694,
+        "latitude": -23.6108218
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.7653527,
+          -23.6074064
+        ],
+        [
+          -46.7664063,
+          -23.6075798
+        ],
+        [
+          -46.7668884,
+          -23.6076806
+        ],
+        [
+          -46.7671844,
+          -23.6077485
+        ],
+        [
+          -46.7675013,
+          -23.607841
+        ],
+        [
+          -46.7677622,
+          -23.6079479
+        ],
+        [
+          -46.7681443,
+          -23.6081282
+        ],
+        [
+          -46.7689853,
+          -23.6085614
+        ],
+        [
+          -46.7694425,
+          -23.6087748
+        ],
+        [
+          -46.7694733,
+          -23.6087869
+        ],
+        [
+          -46.7703091,
+          -23.6091649
+        ],
+        [
+          -46.7718736,
+          -23.6098329
+        ],
+        [
+          -46.7732895,
+          -23.6104
+        ],
+        [
+          -46.7738038,
+          -23.6106028
+        ],
+        [
+          -46.7740312,
+          -23.6106909
+        ],
+        [
+          -46.7743531,
+          -23.6108157
+        ],
+        [
+          -46.7743694,
+          -23.6108218
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados."
+  },
+  {
+    "id": 6,
+    "codigo": "BR116-SP-225-226",
+    "rodovia_id": 2,
+    "km_inicial": 225,
+    "km_final": 226,
+    "comprimento_m": 1000,
+    "largura_m": 14,
+    "area_contribuicao_m2": 14000,
+    "coeficiente_escoamento": 0.85,
+    "inclinacao_percentual": 1.2,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "bom",
+    "mtd_mm": 0.75,
+    "caminho_escoamento_m": 14.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 14,
+      "capacidade_individual_l_s": 30,
+      "capacidade_total_l_s": 420,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.5439078,
+        "latitude": -23.48752
+      },
+      "fim": {
+        "longitude": -46.5518272,
+        "latitude": -23.4928247
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.5439078,
+          -23.48752
+        ],
+        [
+          -46.5452641,
+          -23.4883714
+        ],
+        [
+          -46.545668,
+          -23.4886261
+        ],
+        [
+          -46.5492817,
+          -23.4910258
+        ],
+        [
+          -46.5518163,
+          -23.492817
+        ],
+        [
+          -46.5518272,
+          -23.4928247
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco moderado: pista larga reduz velocidade do escoamento."
+  },
+  {
+    "id": 7,
+    "codigo": "BR116-SP-226-227",
+    "rodovia_id": 2,
+    "km_inicial": 226,
+    "km_final": 227,
+    "comprimento_m": 1000,
+    "largura_m": 14.5,
+    "area_contribuicao_m2": 14500,
+    "coeficiente_escoamento": 0.88,
+    "inclinacao_percentual": 0.8,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.55,
+    "caminho_escoamento_m": 14.8,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 12,
+      "capacidade_individual_l_s": 25,
+      "capacidade_total_l_s": 300,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.5518272,
+        "latitude": -23.4928247
+      },
+      "fim": {
+        "longitude": -46.559621,
+        "latitude": -23.4982879
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.5518272,
+          -23.4928247
+        ],
+        [
+          -46.5520208,
+          -23.4929616
+        ],
+        [
+          -46.5523349,
+          -23.4931835
+        ],
+        [
+          -46.5545643,
+          -23.4947872
+        ],
+        [
+          -46.5556758,
+          -23.4955867
+        ],
+        [
+          -46.5559456,
+          -23.4957704
+        ],
+        [
+          -46.5592039,
+          -23.4979897
+        ],
+        [
+          -46.559621,
+          -23.4982879
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco alto: varzea muito plana proxima ao Trevo Fernao Dias."
+  },
+  {
+    "id": 8,
+    "codigo": "BR116-SP-227-228",
+    "rodovia_id": 2,
+    "km_inicial": 227,
+    "km_final": 228,
+    "comprimento_m": 1000,
+    "largura_m": 15,
+    "area_contribuicao_m2": 15000,
+    "coeficiente_escoamento": 0.92,
+    "inclinacao_percentual": 0.6,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "irregular",
+    "mtd_mm": 0.4,
+    "caminho_escoamento_m": 15.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 10,
+      "capacidade_individual_l_s": 20,
+      "capacidade_total_l_s": 200,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.559621,
+        "latitude": -23.4982879
+      },
+      "fim": {
+        "longitude": -46.5674241,
+        "latitude": -23.503739
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.559621,
+          -23.4982879
+        ],
+        [
+          -46.5597897,
+          -23.4984086
+        ],
+        [
+          -46.5598764,
+          -23.4984683
+        ],
+        [
+          -46.5612726,
+          -23.4994294
+        ],
+        [
+          -46.5619888,
+          -23.4999483
+        ],
+        [
+          -46.5622756,
+          -23.5001413
+        ],
+        [
+          -46.5628671,
+          -23.5005424
+        ],
+        [
+          -46.5643957,
+          -23.501599
+        ],
+        [
+          -46.5647315,
+          -23.5018311
+        ],
+        [
+          -46.5649118,
+          -23.5019545
+        ],
+        [
+          -46.5650114,
+          -23.5020235
+        ],
+        [
+          -46.5669905,
+          -23.5033959
+        ],
+        [
+          -46.5674241,
+          -23.503739
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco alto critico: ponto baixo de acumulo e microtextura gasta."
+  },
+  {
+    "id": 9,
+    "codigo": "BR116-SP-228-229",
+    "rodovia_id": 2,
+    "km_inicial": 228,
+    "km_final": 229,
+    "comprimento_m": 1000,
+    "largura_m": 14,
+    "area_contribuicao_m2": 14000,
+    "coeficiente_escoamento": 0.88,
+    "inclinacao_percentual": 1,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.6,
+    "caminho_escoamento_m": 14.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 14,
+      "capacidade_individual_l_s": 25,
+      "capacidade_total_l_s": 350,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.5674241,
+        "latitude": -23.503739
+      },
+      "fim": {
+        "longitude": -46.574078,
+        "latitude": -23.5103515
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.5674241,
+          -23.503739
+        ],
+        [
+          -46.567541,
+          -23.5038315
+        ],
+        [
+          -46.5681256,
+          -23.504294
+        ],
+        [
+          -46.5690011,
+          -23.5050992
+        ],
+        [
+          -46.5698014,
+          -23.5058857
+        ],
+        [
+          -46.5710388,
+          -23.5071583
+        ],
+        [
+          -46.571537,
+          -23.5076863
+        ],
+        [
+          -46.5726578,
+          -23.5088679
+        ],
+        [
+          -46.5740581,
+          -23.5103305
+        ],
+        [
+          -46.574078,
+          -23.5103515
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco moderado: transicao da Ponte da Vila Guilherme."
+  },
+  {
+    "id": 10,
+    "codigo": "BR116-SP-229-230",
+    "rodovia_id": 2,
+    "km_inicial": 229,
+    "km_final": 230,
+    "comprimento_m": 1000,
+    "largura_m": 14,
+    "area_contribuicao_m2": 14000,
+    "coeficiente_escoamento": 0.85,
+    "inclinacao_percentual": 1.5,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "bom",
+    "mtd_mm": 0.8,
+    "caminho_escoamento_m": 14.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 16,
+      "capacidade_individual_l_s": 30,
+      "capacidade_total_l_s": 480,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.574078,
+        "latitude": -23.5103515
+      },
+      "fim": {
+        "longitude": -46.5805262,
+        "latitude": -23.5171462
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.574078,
+          -23.5103515
+        ],
+        [
+          -46.5740934,
+          -23.5103677
+        ],
+        [
+          -46.5741692,
+          -23.5104477
+        ],
+        [
+          -46.5749729,
+          -23.5112837
+        ],
+        [
+          -46.5775961,
+          -23.5140651
+        ],
+        [
+          -46.57791,
+          -23.5143979
+        ],
+        [
+          -46.5804321,
+          -23.5170473
+        ],
+        [
+          -46.5805262,
+          -23.5171462
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco baixo/moderado: melhor caimento no acesso a Marginal."
+  }
+]

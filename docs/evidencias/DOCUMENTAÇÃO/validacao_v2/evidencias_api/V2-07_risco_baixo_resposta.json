@@ -1,0 +1,74 @@
+{
+  "modo_dados": "mock",
+  "persistida": true,
+  "cenario": {
+    "id": 1,
+    "nome": "Chuva fraca",
+    "trecho_id": 1,
+    "fonte": "MOCK_LOCAL",
+    "precipitacao_mm": 5,
+    "intensidade_mm_h": 5,
+    "data_hora": "2026-11-25T10:00:00-03:00",
+    "estado_pavimento": "bom",
+    "drenagem": {
+      "quantidade": 6,
+      "capacidade_individual_l_s": 120,
+      "capacidade_total_l_s": 720
+    },
+    "risco_esperado": "baixo"
+  },
+  "trecho": {
+    "id": 1,
+    "codigo": "BR116-264",
+    "km_inicial": 264,
+    "km_final": 265
+  },
+  "resultado": {
+    "trecho_id": 1,
+    "dados_clima_id": 2,
+    "vazao_estimada_l_s": 12.396,
+    "volume_acumulado_l": 44625,
+    "pontuacao_risco": 10,
+    "nivel_risco": "baixo",
+    "status_analise": "concluida",
+    "data_analise": "2026-11-28T06:06:42.869038+00:00",
+    "dados_utilizados": {
+      "intensidade_mm_h": 5,
+      "precipitacao_mm": 5,
+      "estado_pavimento": "bom",
+      "inclinacao_percentual": 3.5,
+      "estado_inclinacao": "longitudinal; verificar em levantamento",
+      "area_contribuicao_m2": 10500,
+      "coeficiente_escoamento": 0.85,
+      "capacidade_drenagem_l_s": 600,
+      "drenagem_suficiente": true,
+      "mtd_mm": 0.8,
+      "caminho_escoamento_m": 10.8,
+      "declividade_caminho_percentual": null,
+      "wd_declividade_origem": null,
+      "origem_dados": "mock",
+      "fonte_meteorologia": "desconhecida",
+      "modo_meteorologia": "desconhecido",
+      "origem_trecho": "desconhecida",
+      "origem_geometria": null,
+      "geometria_validada": false,
+      "medicao_data_hora": "2026-11-28T06:06:42.869038+00:00"
+    },
+    "versao_algoritmo": "risk-v1-experimental",
+    "origem_dados": "mock",
+    "dados_ausentes": [
+      "declividade_caminho_percentual"
+    ],
+    "dados_desatualizados": false,
+    "classificacao_disponivel": true,
+    "classificacao_confiavel": false,
+    "wd_mm": null,
+    "wd_status": "indisponivel_parametros_ausentes",
+    "wd_dados_ausentes": [
+      "declividade_caminho_percentual"
+    ],
+    "observacao": "Classificação experimental para demonstração; não é previsão validada nem orientação de condução.",
+    "id": 2,
+    "alerta": null
+  }
+}

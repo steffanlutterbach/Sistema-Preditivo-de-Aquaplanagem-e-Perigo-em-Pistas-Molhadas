@@ -1,0 +1,107 @@
+{
+  "status": "correspondencia_encontrada",
+  "localizacao_processada": true,
+  "localizacao_armazenada": false,
+  "segmento_atual": {
+    "trecho_id": 6,
+    "codigo": "BR116-SP-225-226",
+    "km_inicial": 225,
+    "km_final": 226,
+    "nivel_risco": null,
+    "status_analise": "sem_analises",
+    "data_ultima_analise": null,
+    "distancia_ate_segmento_m": 0
+  },
+  "segmento_mais_proximo": null,
+  "distancia_ate_segmento_m": 0,
+  "proximos_segmentos": [
+    {
+      "trecho_id": 7,
+      "codigo": "BR116-SP-226-227",
+      "km_inicial": 226,
+      "km_final": 227,
+      "distancia_ate_inicio_m": 0,
+      "nivel_risco": null,
+      "status_analise": "sem_analises",
+      "data_ultima_analise": null,
+      "dados_desatualizados": false,
+      "origem_dados": null,
+      "alerta": null,
+      "geometria_validada": false
+    },
+    {
+      "trecho_id": 8,
+      "codigo": "BR116-SP-227-228",
+      "km_inicial": 227,
+      "km_final": 228,
+      "distancia_ate_inicio_m": 1000,
+      "nivel_risco": "alto",
+      "status_analise": "concluida",
+      "data_ultima_analise": "2026-11-28T06:08:26.421454+00:00",
+      "dados_desatualizados": false,
+      "origem_dados": "mock",
+      "alerta": {
+        "id": 3,
+        "trecho_id": 8,
+        "analise_id": 5,
+        "nivel": "alto",
+        "mensagem": "AquaSafe: risco alto de aquaplanagem no segmento 8. Reduza a velocidade com segurança e redobre a atenção.",
+        "status": "ativo",
+        "data_hora": "2026-11-28T06:08:26.421454+00:00",
+        "validade": "2026-11-28T06:38:26.421454+00:00",
+        "chave_deduplicacao": "trecho:8",
+        "chave_notificacao": "aqua-alerta:3:alto"
+      },
+      "geometria_validada": false
+    },
+    {
+      "trecho_id": 9,
+      "codigo": "BR116-SP-228-229",
+      "km_inicial": 228,
+      "km_final": 229,
+      "distancia_ate_inicio_m": 2000,
+      "nivel_risco": null,
+      "status_analise": "sem_analises",
+      "data_ultima_analise": null,
+      "dados_desatualizados": false,
+      "origem_dados": null,
+      "alerta": null,
+      "geometria_validada": false
+    },
+    {
+      "trecho_id": 10,
+      "codigo": "BR116-SP-229-230",
+      "km_inicial": 229,
+      "km_final": 230,
+      "distancia_ate_inicio_m": 3000,
+      "nivel_risco": null,
+      "status_analise": "sem_analises",
+      "data_ultima_analise": null,
+      "dados_desatualizados": false,
+      "origem_dados": null,
+      "alerta": null,
+      "geometria_validada": false
+    }
+  ],
+  "alertas_relevantes": [
+    {
+      "id": 3,
+      "trecho_id": 8,
+      "analise_id": 5,
+      "nivel": "alto",
+      "mensagem": "AquaSafe: risco alto de aquaplanagem no segmento 8. Reduza a velocidade com segurança e redobre a atenção.",
+      "status": "ativo",
+      "data_hora": "2026-11-28T06:08:26.421454+00:00",
+      "validade": "2026-11-28T06:38:26.421454+00:00",
+      "chave_deduplicacao": "trecho:8",
+      "chave_notificacao": "aqua-alerta:3:alto",
+      "distancia_ate_trecho_m": 1000
+    }
+  ],
+  "sentido_utilizado": "crescente",
+  "sentido_assumido": false,
+  "antecedencia_maxima_m": 5000,
+  "validade_e_chave_alerta_incluidas": true,
+  "origem_geometria": "geometria_mock_aproximada; correspondência apenas para teste",
+  "observacao": "Distâncias ao longo da rota usam comprimentos cadastrados; geometria mock aproximada não deve ser usada para navegação real."
+}

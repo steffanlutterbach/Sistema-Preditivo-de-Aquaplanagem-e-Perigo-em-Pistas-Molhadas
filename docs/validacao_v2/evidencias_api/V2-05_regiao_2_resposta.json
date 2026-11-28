@@ -1,0 +1,407 @@
+[
+  {
+    "id": 6,
+    "codigo": "BR116-SP-225-226",
+    "rodovia_id": 2,
+    "km_inicial": 225,
+    "km_final": 226,
+    "comprimento_m": 1000,
+    "largura_m": 14,
+    "area_contribuicao_m2": 14000,
+    "coeficiente_escoamento": 0.85,
+    "inclinacao_percentual": 1.2,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "bom",
+    "mtd_mm": 0.75,
+    "caminho_escoamento_m": 14.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 14,
+      "capacidade_individual_l_s": 30,
+      "capacidade_total_l_s": 420,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.5439078,
+        "latitude": -23.48752
+      },
+      "fim": {
+        "longitude": -46.5518272,
+        "latitude": -23.4928247
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.5439078,
+          -23.48752
+        ],
+        [
+          -46.5452641,
+          -23.4883714
+        ],
+        [
+          -46.545668,
+          -23.4886261
+        ],
+        [
+          -46.5492817,
+          -23.4910258
+        ],
+        [
+          -46.5518163,
+          -23.492817
+        ],
+        [
+          -46.5518272,
+          -23.4928247
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco moderado: pista larga reduz velocidade do escoamento."
+  },
+  {
+    "id": 7,
+    "codigo": "BR116-SP-226-227",
+    "rodovia_id": 2,
+    "km_inicial": 226,
+    "km_final": 227,
+    "comprimento_m": 1000,
+    "largura_m": 14.5,
+    "area_contribuicao_m2": 14500,
+    "coeficiente_escoamento": 0.88,
+    "inclinacao_percentual": 0.8,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.55,
+    "caminho_escoamento_m": 14.8,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 12,
+      "capacidade_individual_l_s": 25,
+      "capacidade_total_l_s": 300,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.5518272,
+        "latitude": -23.4928247
+      },
+      "fim": {
+        "longitude": -46.559621,
+        "latitude": -23.4982879
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.5518272,
+          -23.4928247
+        ],
+        [
+          -46.5520208,
+          -23.4929616
+        ],
+        [
+          -46.5523349,
+          -23.4931835
+        ],
+        [
+          -46.5545643,
+          -23.4947872
+        ],
+        [
+          -46.5556758,
+          -23.4955867
+        ],
+        [
+          -46.5559456,
+          -23.4957704
+        ],
+        [
+          -46.5592039,
+          -23.4979897
+        ],
+        [
+          -46.559621,
+          -23.4982879
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco alto: varzea muito plana proxima ao Trevo Fernao Dias."
+  },
+  {
+    "id": 8,
+    "codigo": "BR116-SP-227-228",
+    "rodovia_id": 2,
+    "km_inicial": 227,
+    "km_final": 228,
+    "comprimento_m": 1000,
+    "largura_m": 15,
+    "area_contribuicao_m2": 15000,
+    "coeficiente_escoamento": 0.92,
+    "inclinacao_percentual": 0.6,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "irregular",
+    "mtd_mm": 0.4,
+    "caminho_escoamento_m": 15.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 10,
+      "capacidade_individual_l_s": 20,
+      "capacidade_total_l_s": 200,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.559621,
+        "latitude": -23.4982879
+      },
+      "fim": {
+        "longitude": -46.5674241,
+        "latitude": -23.503739
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.559621,
+          -23.4982879
+        ],
+        [
+          -46.5597897,
+          -23.4984086
+        ],
+        [
+          -46.5598764,
+          -23.4984683
+        ],
+        [
+          -46.5612726,
+          -23.4994294
+        ],
+        [
+          -46.5619888,
+          -23.4999483
+        ],
+        [
+          -46.5622756,
+          -23.5001413
+        ],
+        [
+          -46.5628671,
+          -23.5005424
+        ],
+        [
+          -46.5643957,
+          -23.501599
+        ],
+        [
+          -46.5647315,
+          -23.5018311
+        ],
+        [
+          -46.5649118,
+          -23.5019545
+        ],
+        [
+          -46.5650114,
+          -23.5020235
+        ],
+        [
+          -46.5669905,
+          -23.5033959
+        ],
+        [
+          -46.5674241,
+          -23.503739
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco alto critico: ponto baixo de acumulo e microtextura gasta."
+  },
+  {
+    "id": 9,
+    "codigo": "BR116-SP-228-229",
+    "rodovia_id": 2,
+    "km_inicial": 228,
+    "km_final": 229,
+    "comprimento_m": 1000,
+    "largura_m": 14,
+    "area_contribuicao_m2": 14000,
+    "coeficiente_escoamento": 0.88,
+    "inclinacao_percentual": 1,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.6,
+    "caminho_escoamento_m": 14.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 14,
+      "capacidade_individual_l_s": 25,
+      "capacidade_total_l_s": 350,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.5674241,
+        "latitude": -23.503739
+      },
+      "fim": {
+        "longitude": -46.574078,
+        "latitude": -23.5103515
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.5674241,
+          -23.503739
+        ],
+        [
+          -46.567541,
+          -23.5038315
+        ],
+        [
+          -46.5681256,
+          -23.504294
+        ],
+        [
+          -46.5690011,
+          -23.5050992
+        ],
+        [
+          -46.5698014,
+          -23.5058857
+        ],
+        [
+          -46.5710388,
+          -23.5071583
+        ],
+        [
+          -46.571537,
+          -23.5076863
+        ],
+        [
+          -46.5726578,
+          -23.5088679
+        ],
+        [
+          -46.5740581,
+          -23.5103305
+        ],
+        [
+          -46.574078,
+          -23.5103515
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco moderado: transicao da Ponte da Vila Guilherme."
+  },
+  {
+    "id": 10,
+    "codigo": "BR116-SP-229-230",
+    "rodovia_id": 2,
+    "km_inicial": 229,
+    "km_final": 230,
+    "comprimento_m": 1000,
+    "largura_m": 14,
+    "area_contribuicao_m2": 14000,
+    "coeficiente_escoamento": 0.85,
+    "inclinacao_percentual": 1.5,
+    "estado_inclinacao": "longitudinal; simulated test parameter",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "bom",
+    "mtd_mm": 0.8,
+    "caminho_escoamento_m": 14.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "drenagem urbana simulada",
+      "quantidade": 16,
+      "capacidade_individual_l_s": 30,
+      "capacidade_total_l_s": 480,
+      "observacao": "User-provided test data; capacity not measured in field."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "longitude": -46.574078,
+        "latitude": -23.5103515
+      },
+      "fim": {
+        "longitude": -46.5805262,
+        "latitude": -23.5171462
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.574078,
+          -23.5103515
+        ],
+        [
+          -46.5740934,
+          -23.5103677
+        ],
+        [
+          -46.5741692,
+          -23.5104477
+        ],
+        [
+          -46.5749729,
+          -23.5112837
+        ],
+        [
+          -46.5775961,
+          -23.5140651
+        ],
+        [
+          -46.57791,
+          -23.5143979
+        ],
+        [
+          -46.5804321,
+          -23.5170473
+        ],
+        [
+          -46.5805262,
+          -23.5171462
+        ]
+      ]
+    },
+    "origem_dados": "mock",
+    "geometria_validada": false,
+    "origem_geometria": "OpenStreetMap (Overpass API), dados ODbL; vias BR-116 conectadas e cortadas geodesicamente em segmentos de 1.000 m. Quilometragem 264-269 aproximada, sem marcos oficiais confirmados.",
+    "observacoes_teste": "Mock-only data. Runoff coefficient reference: DNIT IPR-715 asphalt range 0.70-0.95. WD reference supplied: Gallaway (1979) / DNIT. WD does not affect the current risk score.",
+    "comportamento_esperado_declarado": "Risco baixo/moderado: melhor caimento no acesso a Marginal."
+  }
+]

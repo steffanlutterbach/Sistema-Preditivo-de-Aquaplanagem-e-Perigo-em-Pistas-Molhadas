@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "trecho_id": 2,
+    "analise_id": 3,
+    "nivel": "moderado",
+    "mensagem": "AquaSafe: risco moderado de aquaplanagem no segmento 2. Reduza a velocidade com segurança e redobre a atenção.",
+    "status": "ativo",
+    "data_hora": "2026-11-28T06:07:15.074678+00:00",
+    "validade": "2026-11-28T06:37:15.074678+00:00",
+    "chave_deduplicacao": "trecho:2",
+    "chave_notificacao": "aqua-alerta:1:moderado"
+  },
+  {
+    "id": 2,
+    "trecho_id": 3,
+    "analise_id": 4,
+    "nivel": "alto",
+    "mensagem": "AquaSafe: risco alto de aquaplanagem no segmento 3. Reduza a velocidade com segurança e redobre a atenção.",
+    "status": "ativo",
+    "data_hora": "2026-11-28T06:07:49.300235+00:00",
+    "validade": "2026-11-28T06:37:49.300235+00:00",
+    "chave_deduplicacao": "trecho:3",
+    "chave_notificacao": "aqua-alerta:2:alto"
+  },
+  {
+    "id": 3,
+    "trecho_id": 8,
+    "analise_id": 5,
+    "nivel": "alto",
+    "mensagem": "AquaSafe: risco alto de aquaplanagem no segmento 8. Reduza a velocidade com segurança e redobre a atenção.",
+    "status": "ativo",
+    "data_hora": "2026-11-28T06:08:26.421454+00:00",
+    "validade": "2026-11-28T06:38:26.421454+00:00",
+    "chave_deduplicacao": "trecho:8",
+    "chave_notificacao": "aqua-alerta:3:alto"
+  }
+]

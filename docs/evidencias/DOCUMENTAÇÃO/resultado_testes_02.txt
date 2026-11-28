@@ -1,0 +1,1217 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.3, pytest-8.4.2, pluggy-1.7.0 -- C:\Users\Lutter\Downloads\Sistema-Preditivo-de-Aquaplanagem-e-Perigo-em-Pistas-Molhadas\backend\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Lutter\Downloads\Sistema-Preditivo-de-Aquaplanagem-e-Perigo-em-Pistas-Molhadas\backend
+plugins: anyio-4.16.0
+collecting ... collected 25 items
+
+tests/test_backend_mvp.py::test_cinco_segmentos_br116_e_dados_aproximados PASSED [  4%]
+tests/test_backend_mvp.py::test_cadastrar_consultar_e_atualizar_segmento PASSED [  8%]
+tests/test_backend_mvp.py::test_validacao_intervalo_geometria_e_coordenadas PASSED [ 12%]
+tests/test_backend_mvp.py::test_associacao_candidata_precisa_ser_validada_antes_da_medicao PASSED [ 16%]
+tests/test_backend_mvp.py::test_meteorologia_e_identificada_e_duplicidade_rejeitada PASSED [ 20%]
+tests/test_backend_mvp.py::test_dados_meteorologicos_antigos_sao_marcados_e_nao_classificados PASSED [ 24%]
+tests/test_backend_mvp.py::test_cenarios_de_risco[1-1-baixo] PASSED      [ 28%]
+tests/test_backend_mvp.py::test_cenarios_de_risco[2-2-moderado] PASSED   [ 32%]
+tests/test_backend_mvp.py::test_cenarios_de_risco[3-3-alto] PASSED       [ 36%]
+tests/test_backend_mvp.py::test_faltam_dados_obrigatorios_sem_classificacao PASSED [ 40%]
+tests/test_backend_mvp.py::test_wd_e_condicional_e_inclinacao_percentual_e_usada_como_s PASSED [ 44%]
+tests/test_backend_mvp.py::test_wd_calcula_quando_declividade_do_caminho_esta_disponivel PASSED [ 48%]
+tests/test_backend_mvp.py::test_wd_fica_ausente_sem_mtd_sem_bloquear_analise_de_risco PASSED [ 52%]
+tests/test_backend_mvp.py::test_formula_hidrologica_existente PASSED     [ 56%]
+tests/test_backend_mvp.py::test_alerta_tem_validade_chave_estavel_e_historico FAILED [ 60%]
+tests/test_backend_mvp.py::test_mudanca_para_baixo_resolve_alerta_anterior PASSED [ 64%]
+tests/test_backend_mvp.py::test_localizacao_encontra_segmento_sem_reter_coordenada PASSED [ 68%]
+tests/test_backend_mvp.py::test_localizacao_fora_da_tolerancia_nao_afirma_segmento_atual PASSED [ 72%]
+tests/test_backend_mvp.py::test_alerta_do_proximo_segmento_e_retornado_com_distancia PASSED [ 76%]
+tests/test_backend_mvp.py::test_health_and_map_have_consistent_mock_data PASSED [ 80%]
+tests/test_backend_mvp.py::test_chave_de_api_e_exigida_quando_configurada PASSED [ 84%]
+tests/test_backend_mvp.py::test_falha_de_banco_retorna_503_sem_expor_detalhes PASSED [ 88%]
+tests/test_backend_mvp.py::test_simulacao_em_modo_real_nao_persiste_no_banco_operacional PASSED [ 92%]
+tests/test_backend_mvp.py::test_migrations_preservam_tabelas_e_incluem_cinco_segmentos PASSED [ 96%]
+tests/test_calculo_vazao.py::test_calcula_vazao PASSED                   [100%]
+
+================================== FAILURES ===================================
+_____________ test_alerta_tem_validade_chave_estavel_e_historico ______________
+
+    def test_alerta_tem_validade_chave_estavel_e_historico():
+        _, first = request("POST", "/simulacoes", {"cenario_id": 3, "trecho_id": 3})
+        alert1 = first["resultado"]["alerta"]
+>       _, second = request("POST", "/simulacoes", {"cenario_id": 3, "trecho_id": 3})
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_backend_mvp.py:171: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+method = 'POST', path = '/simulacoes'
+payload = {'cenario_id': 3, 'trecho_id': 3}, headers = None
+
+    def request(method: str, path: str, payload: dict | None = None, headers: dict[str, str] | None = None):
+        encoded = json.dumps(payload).encode() if payload is not None else b""
+        parsed = urlsplit(path)
+        scope = {
+            "type": "http", "asgi": {"version": "3.0"}, "http_version": "1.1",
+            "method": method, "scheme": "http", "path": parsed.path, "raw_path": parsed.path.encode(),
+            "query_string": parsed.query.encode(),
+            "headers": [
+        (b"host", b"test"),
+        *([(b"content-type", b"application/json")] if payload is not None else []),
+        *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items()),
+    ],
+            "client": ("test", 1234), "server": ("test", 80),
+        }
+        sent = []
+        received = False
+    
+        async def receive():
+            nonlocal received
+            if not received:
+                received = True
+                return {"type": "http.request", "body": encoded, "more_body": False}
+            return {"type": "http.disconnect"}
+    
+        async def send(message):
+            sent.append(message)
+    
+>       asyncio.run(app(scope, receive, send))
+
+tests\test_backend_mvp.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+main = <coroutine object FastAPI.__call__ at 0x0000014945796680>
+
+    def run(main, *, debug=None, loop_factory=None):
+        """Execute the coroutine and return the result.
+    
+        This function runs the passed coroutine, taking care of
+        managing the asyncio event loop, finalizing asynchronous
+        generators and closing the default executor.
+    
+        This function cannot be called when another asyncio event loop is
+        running in the same thread.
+    
+        If debug is True, the event loop will be run in debug mode.
+    
+        This function always creates a new event loop and closes it at the end.
+        It should be used as a main entry point for asyncio programs, and should
+        ideally only be called once.
+    
+        The executor is given a timeout duration of 5 minutes to shutdown.
+        If the executor hasn't finished within that duration, a warning is
+        emitted and the executor is closed.
+    
+        Example:
+    
+            async def main():
+                await asyncio.sleep(1)
+                print('hello')
+    
+            asyncio.run(main())
+        """
+        if events._get_running_loop() is not None:
+            # fail fast with short traceback
+            raise RuntimeError(
+                "asyncio.run() cannot be called from a running event loop")
+    
+        with Runner(debug=debug, loop_factory=loop_factory) as runner:
+>           return runner.run(main)
+                   ^^^^^^^^^^^^^^^^
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py:194: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <asyncio.runners.Runner object at 0x0000014946826CC0>
+coro = <coroutine object FastAPI.__call__ at 0x0000014945796680>
+
+    def run(self, coro, *, context=None):
+        """Run a coroutine inside the embedded event loop."""
+        if not coroutines.iscoroutine(coro):
+            raise ValueError("a coroutine was expected, got {!r}".format(coro))
+    
+        if events._get_running_loop() is not None:
+            # fail fast with short traceback
+            raise RuntimeError(
+                "Runner.run() cannot be called from a running event loop")
+    
+        self._lazy_init()
+    
+        if context is None:
+            context = self._context
+        task = self._loop.create_task(coro, context=context)
+    
+        if (threading.current_thread() is threading.main_thread()
+            and signal.getsignal(signal.SIGINT) is signal.default_int_handler
+        ):
+            sigint_handler = functools.partial(self._on_sigint, main_task=task)
+            try:
+                signal.signal(signal.SIGINT, sigint_handler)
+            except ValueError:
+                # `signal.signal` may throw if `threading.main_thread` does
+                # not support signals (e.g. embedded interpreter with signals
+                # not registered - see gh-91880)
+                sigint_handler = None
+        else:
+            sigint_handler = None
+    
+        self._interrupt_count = 0
+        try:
+>           return self._loop.run_until_complete(task)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <ProactorEventLoop running=False closed=True debug=False>
+future = <Task finished name='Task-82' coro=<FastAPI.__call__() done, defined at C:\Users\Lutter\Downloads\Sistema-Preditivo-de...b\site-packages\fastapi\applications.py:1205> exception=ValueError('MediþÒo duplicada para trecho, fonte e data/hora')>
+
+    def run_until_complete(self, future):
+        """Run until the Future is done.
+    
+        If the argument is a coroutine, it is wrapped in a Task.
+    
+        WARNING: It would be disastrous to call run_until_complete()
+        with the same coroutine twice -- it would wrap it in two
+        different Tasks and that can't be good.
+    
+        Return the Future's result, or raise its exception.
+        """
+        self._check_closed()
+        self._check_running()
+    
+        new_task = not futures.isfuture(future)
+        future = tasks.ensure_future(future, loop=self)
+        if new_task:
+            # An exception is raised if the future didn't complete, so there
+            # is no need to log the "destroy pending task" message
+            future._log_destroy_pending = False
+    
+        future.add_done_callback(_run_until_complete_cb)
+        try:
+            self.run_forever()
+        except:
+            if new_task and future.done() and not future.cancelled():
+                # The coroutine raised a BaseException. Consume the exception
+                # to not log a warning, the caller doesn't have access to the
+                # local task.
+                future.exception()
+            raise
+        finally:
+            future.remove_done_callback(_run_until_complete_cb)
+        if not future.done():
+            raise RuntimeError('Event loop stopped before Future completed.')
+    
+>       return future.result()
+               ^^^^^^^^^^^^^^^
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py:687: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <fastapi.applications.FastAPI object at 0x000001494577E4B0>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function request.<locals>.send at 0x00000149467F40E0>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if self.root_path:
+            scope["root_path"] = self.root_path
+        if scope["type"] == "lifespan":
+            from fastapi.telemetry._runtime import lifespan
+    
+            await lifespan(
+                config=self._telemetry,
+                app=super().__call__,
+                scope=scope,
+                receive=receive,
+                send=send,
+            )
+            return
+        if (
+            scope["type"] not in ("http", "websocket")
+            or "fastapi.telemetry" in scope
+            or not self._native_telemetry.enabled()
+        ):
+>           await super().__call__(scope, receive, send)
+
+.venv\Lib\site-packages\fastapi\applications.py:1224: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <fastapi.applications.FastAPI object at 0x000001494577E4B0>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function request.<locals>.send at 0x00000149467F40E0>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        scope["app"] = self
+        if self.middleware_stack is None:
+            self.middleware_stack = self.build_middleware_stack()
+>       await self.middleware_stack(scope, receive, send)
+
+.venv\Lib\site-packages\starlette\applications.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <starlette.middleware.errors.ServerErrorMiddleware object at 0x00000149467D1E80>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function request.<locals>.send at 0x00000149467F40E0>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+    
+        response_started = False
+    
+        async def _send(message: Message) -> None:
+            nonlocal response_started, send
+    
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
+    
+        try:
+            await self.app(scope, receive, _send)
+        except Exception as exc:
+            request = Request(scope)
+            if self.debug:
+                # In debug mode, return traceback responses.
+                response = await run_in_threadpool(self.debug_response, request, exc)
+            elif self.handler is None:
+                # Use our default 500 error handler.
+                response = self.error_response(request, exc)
+            else:
+                # Use an installed 500 error handler.
+                if is_async_callable(self.handler):
+                    response = await self.handler(request, exc)  # type: ignore[assignment, arg-type]
+                else:
+                    response = await run_in_threadpool(self.handler, request, exc)  # type: ignore[arg-type]
+    
+            if not response_started:
+                await response(scope, receive, send)
+    
+            # We always continue to raise the exception.
+            # This allows servers to log the error, or allows test clients
+            # to optionally raise the error within the test case.
+>           raise exc
+
+.venv\Lib\site-packages\starlette\middleware\errors.py:186: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <starlette.middleware.errors.ServerErrorMiddleware object at 0x00000149467D1E80>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function request.<locals>.send at 0x00000149467F40E0>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+    
+        response_started = False
+    
+        async def _send(message: Message) -> None:
+            nonlocal response_started, send
+    
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
+    
+        try:
+>           await self.app(scope, receive, _send)
+
+.venv\Lib\site-packages\starlette\middleware\errors.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <fastapi.telemetry._asgi.ExceptionTelemetryMiddleware object at 0x00000149467D2090>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function ServerErrorMiddleware.__call__.<locals>._send at 0x00000149467F5580>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        try:
+>           await self.app(scope, receive, send)
+
+.venv\Lib\site-packages\fastapi\telemetry\_asgi.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <fastapi._body_limit.AppBodyLimitMiddleware object at 0x00000149467D2000>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function ServerErrorMiddleware.__call__.<locals>._send at 0x00000149467F5580>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if MAX_BODY_SIZE_SCOPE_KEY not in scope:
+>           await self.app(scope, receive, send)
+
+.venv\Lib\site-packages\fastapi\_body_limit.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <starlette.middleware.cors.CORSMiddleware object at 0x00000149467D2270>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function ServerErrorMiddleware.__call__.<locals>._send at 0x00000149467F5580>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] != "http":  # pragma: no cover
+            await self.app(scope, receive, send)
+            return
+    
+        method = scope["method"]
+        headers = Headers(scope=scope)
+        origin = headers.get("origin")
+    
+        if origin is not None and method == "OPTIONS" and "access-control-request-method" in headers:
+            response = self.preflight_response(request_headers=headers)
+            await response(scope, receive, send)
+            return
+    
+>       await self.simple_response(scope, receive, send, request_headers=headers)
+
+.venv\Lib\site-packages\starlette\middleware\cors.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <starlette.middleware.cors.CORSMiddleware object at 0x00000149467D2270>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x000001494..._.<locals>._send at 0x00000149467F5580>, request_headers=Headers({'host': 'test', 'content-type': 'application/json'}))
+request_headers = Headers({'host': 'test', 'content-type': 'application/json'})
+
+    async def simple_response(self, scope: Scope, receive: Receive, send: Send, request_headers: Headers) -> None:
+        send = functools.partial(self.send, send=send, request_headers=request_headers)
+>       await self.app(scope, receive, send)
+
+.venv\Lib\site-packages\starlette\middleware\cors.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000149467D22A0>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x000001494..._.<locals>._send at 0x00000149467F5580>, request_headers=Headers({'host': 'test', 'content-type': 'application/json'}))
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] not in ("http", "websocket"):
+            await self.app(scope, receive, send)
+            return
+    
+        scope["starlette.exception_handlers"] = (
+            self._exception_handlers,
+            self._status_handlers,
+        )
+    
+        conn: Request | WebSocket
+        if scope["type"] == "http":
+            conn = Request(scope, receive, send)
+        else:
+            conn = WebSocket(scope, receive, send)
+    
+>       await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+
+.venv\Lib\site-packages\starlette\middleware\exceptions.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x000001494..._.<locals>._send at 0x00000149467F5580>, request_headers=Headers({'host': 'test', 'content-type': 'application/json'}))
+
+    async def wrapped_app(scope: Scope, receive: Receive, send: Send) -> None:
+        response_started = False
+    
+        async def sender(message: Message) -> None:
+            nonlocal response_started
+    
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
+    
+        try:
+            await app(scope, receive, sender)
+        except Exception as exc:
+            handler = None
+    
+            if isinstance(exc, HTTPException):
+                handler = status_handlers.get(exc.status_code)
+    
+            if handler is None:
+                handler = _lookup_exception_handler(exception_handlers, exc)
+    
+            if handler is None:
+>               raise exc
+
+.venv\Lib\site-packages\starlette\_exception_handler.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x000001494..._.<locals>._send at 0x00000149467F5580>, request_headers=Headers({'host': 'test', 'content-type': 'application/json'}))
+
+    async def wrapped_app(scope: Scope, receive: Receive, send: Send) -> None:
+        response_started = False
+    
+        async def sender(message: Message) -> None:
+            nonlocal response_started
+    
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
+    
+        try:
+>           await app(scope, receive, sender)
+
+.venv\Lib\site-packages\starlette\_exception_handler.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000149467D21E0>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6980>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        async with AsyncExitStack() as stack:
+            scope[self.context_name] = stack
+>           await self.app(scope, receive, send)
+
+.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <fastapi.routing.APIRouter object at 0x00000149457DBB30>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6980>
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        """
+        The main entry point to the Router class.
+        """
+>       await self.middleware_stack(scope, receive, send)
+
+.venv\Lib\site-packages\starlette\routing.py:683: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <fastapi.routing.APIRouter object at 0x00000149457DBB30>
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6980>
+
+    async def app(self, scope: Scope, receive: Receive, send: Send) -> None:
+        assert scope["type"] in ("http", "websocket", "lifespan")
+    
+        _apply_router_form_limits(scope, self.form_limits)
+        if "router" not in scope:
+            scope["router"] = self
+    
+        if scope["type"] == "lifespan":
+            await self.lifespan(scope, receive, send)
+            return
+    
+        partial: tuple[BaseRoute, Scope] | None = None
+        for route in self.routes:
+            match, child_scope = route.matches(scope)
+            if match == Match.FULL:
+                _update_scope(scope, child_scope)
+                _route_selected(
+                    scope=scope,
+                    path=getattr(route, "path_format", None),
+                    mount=isinstance(route, routing.Mount),
+                )
+>               await route.handle(scope, receive, send)
+
+.venv\Lib\site-packages\fastapi\routing.py:2929: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = APIRoute(path='/simulacoes', name='executar_simulacao', methods=['POST'])
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6980>
+
+    async def handle(self, scope: Scope, receive: Receive, send: Send) -> None:
+        effective_context = _get_scope_effective_route_context(scope)
+        if effective_context is not None and effective_context.original_route is self:
+            methods = effective_context.methods
+            if methods and scope["method"] not in methods:
+                headers = {"Allow": ", ".join(methods)}
+                if "app" in scope:
+                    raise HTTPException(status_code=405, headers=headers)
+                response = PlainTextResponse(
+                    "Method Not Allowed", status_code=405, headers=headers
+                )
+                await response(scope, receive, send)
+                return
+            assert effective_context.app is not None
+            await effective_context.app(scope, receive, send)
+            return
+>       await super().handle(scope, receive, send)
+
+.venv\Lib\site-packages\fastapi\routing.py:1375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = APIRoute(path='/simulacoes', name='executar_simulacao', methods=['POST'])
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6980>
+
+    async def handle(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if self.methods and scope["method"] not in self.methods:
+            headers = {"Allow": ", ".join(self.methods)}
+            if "app" in scope:
+                raise HTTPException(status_code=405, headers=headers)
+            else:
+                response = PlainTextResponse("Method Not Allowed", status_code=405, headers=headers)
+            await response(scope, receive, send)
+        else:
+>           await self.app(scope, receive, send)
+
+.venv\Lib\site-packages\starlette\routing.py:289: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6980>
+
+    async def app(scope: Scope, receive: Receive, send: Send) -> None:
+        request = Request(scope, receive, send)
+    
+        async def app(scope: Scope, receive: Receive, send: Send) -> None:
+            # Starts customization
+            response_awaited = False
+            async with AsyncExitStack() as request_stack:
+                scope["fastapi_inner_astack"] = request_stack
+                async with AsyncExitStack() as function_stack:
+                    scope["fastapi_function_astack"] = function_stack
+                    response = await f(request)
+                await response(scope, receive, send)
+                # Continues customization
+                response_awaited = True
+            if not response_awaited:
+                raise FastAPIError(
+                    "Response not awaited. There's a high chance that the "
+                    "application code is raising an exception and a dependency with yield "
+                    "has a block with a bare except, or a block with except Exception, "
+                    "and is not raising the exception again. Read more about it in the "
+                    "docs: https://fastapi.tiangolo.com/tutorial/dependencies/dependencies-with-yield/#dependencies-with-yield-and-except"
+                )
+    
+        # Same as in Starlette
+>       await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+
+.venv\Lib\site-packages\fastapi\routing.py:175: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6980>
+
+    async def wrapped_app(scope: Scope, receive: Receive, send: Send) -> None:
+        response_started = False
+    
+        async def sender(message: Message) -> None:
+            nonlocal response_started
+    
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
+    
+        try:
+            await app(scope, receive, sender)
+        except Exception as exc:
+            handler = None
+    
+            if isinstance(exc, HTTPException):
+                handler = status_handlers.get(exc.status_code)
+    
+            if handler is None:
+                handler = _lookup_exception_handler(exception_handlers, exc)
+    
+            if handler is None:
+>               raise exc
+
+.venv\Lib\site-packages\starlette\_exception_handler.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6980>
+
+    async def wrapped_app(scope: Scope, receive: Receive, send: Send) -> None:
+        response_started = False
+    
+        async def sender(message: Message) -> None:
+            nonlocal response_started
+    
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
+    
+        try:
+>           await app(scope, receive, sender)
+
+.venv\Lib\site-packages\starlette\_exception_handler.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scope = {'app': <fastapi.applications.FastAPI object at 0x000001494577E4B0>, 'asgi': {'version': '3.0'}, 'client': ('test', 1234), 'endpoint': <function executar_simulacao at 0x00000149467BA200>, ...}
+receive = <function request.<locals>.receive at 0x00000149467F4720>
+send = <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000149467F6E80>
+
+    async def app(scope: Scope, receive: Receive, send: Send) -> None:
+        # Starts customization
+        response_awaited = False
+        async with AsyncExitStack() as request_stack:
+            scope["fastapi_inner_astack"] = request_stack
+            async with AsyncExitStack() as function_stack:
+                scope["fastapi_function_astack"] = function_stack
+>               response = await f(request)
+                           ^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\fastapi\routing.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+request = <starlette.requests.Request object at 0x00000149468269C0>
+
+    async def app(request: Request) -> Response:
+        telemetry_data = get_telemetry_data()
+        if telemetry_data is not None:
+            telemetry_data.request = request
+        response: Response | None = None
+        file_stack = request.scope.get("fastapi_middleware_astack")
+        assert isinstance(file_stack, AsyncExitStack), (
+            "fastapi_middleware_astack not found in request scope"
+        )
+    
+        # Extract endpoint context for error messages
+        endpoint_ctx = (
+            _extract_endpoint_context(dependant.call)
+            if dependant.call
+            else EndpointContext()
+        )
+    
+        if dependant.path:
+            # For mounted sub-apps, include the mount path prefix
+            mount_path = request.scope.get("root_path", "").rstrip("/")
+            endpoint_ctx["path"] = f"{request.method} {mount_path}{dependant.path}"
+    
+        # Read body and auto-close files
+        try:
+            body: Any = Undefined
+            if body_field:
+                if is_body_form:
+                    limits = _resolve_form_limits(
+                        request.scope.get(_FASTAPI_SCOPE_KEY, {}), form_limits
+                    )
+                    body = await request.form(**limits)
+                    file_stack.push_async_callback(body.close)
+                else:
+                    body_bytes = await request.body()
+                    if body_bytes:
+                        json_body: Any = Undefined
+                        content_type_value = request.headers.get("content-type")
+                        if not content_type_value:
+                            if not actual_strict_content_type:
+                                json_body = await request.json()
+                        else:
+                            message = email.message.Message()
+                            message["content-type"] = content_type_value
+                            if message.get_content_maintype() == "application":
+                                subtype = message.get_content_subtype()
+                                if subtype == "json" or subtype.endswith("+json"):
+                                    json_body = await request.json()
+                        if json_body is not Undefined:
+                            body = json_body
+                        else:
+                            body = body_bytes
+        except json.JSONDecodeError as e:
+            validation_error = RequestValidationError(
+                [
+                    {
+                        "type": "json_invalid",
+                        "loc": ("body", e.pos),
+                        "msg": "JSON decode error",
+                        "input": {},
+                        "ctx": {"error": e.msg},
+                    }
+                ],
+                body=e.doc,
+                endpoint_ctx=endpoint_ctx,
+            )
+            _validation_failed(validation_error)
+            raise validation_error from e
+        except HTTPException:
+            # If a middleware raises an HTTPException, it should be raised again
+            raise
+        except Exception as e:
+            if MAX_BODY_SIZE_SCOPE_KEY in request.scope and (
+                error := get_body_limit_error(e)
+            ):
+                raise error from e
+            http_error = HTTPException(
+                status_code=400, detail="There was an error parsing the body"
+            )
+            raise http_error from e
+    
+        if telemetry_data is not None:
+            telemetry_data.body = None if body is Undefined else body
+    
+        # Solve dependencies and run path operation function, auto-closing dependencies
+        errors: list[Any] = []
+        async_exit_stack = request.scope.get("fastapi_inner_astack")
+        assert isinstance(async_exit_stack, AsyncExitStack), (
+            "fastapi_inner_astack not found in request scope"
+        )
+        with _operation(name="dependencies", function=dependant.call):
+            solved_result = await solve_dependencies(
+                request=request,
+                dependant=dependant,
+                body=body,
+                dependency_overrides_provider=dependency_overrides_provider,
+                async_exit_stack=async_exit_stack,
+                embed_body_fields=embed_body_fields,
+            )
+            if telemetry_data is not None:
+                telemetry_data.values = solved_result.values
+                telemetry_data.errors = solved_result.errors
+        errors = solved_result.errors
+        assert dependant.call  # For types
+        if not errors:
+            # Shared serializer for stream items (JSONL and SSE).
+            # Validates against stream_item_field when set, then
+            # serializes to JSON bytes.
+            def _serialize_data(data: Any) -> bytes:
+                if stream_item_field:
+                    value, errors_ = stream_item_field.validate(
+                        data, {}, loc=("response",)
+                    )
+                    if errors_:
+                        ctx = endpoint_ctx or EndpointContext()
+                        raise ResponseValidationError(
+                            errors=errors_,
+                            body=data,
+                            endpoint_ctx=ctx,
+                        )
+                    return stream_item_field.serialize_json(
+                        value,
+                        include=response_model_include,
+                        exclude=response_model_exclude,
+                        by_alias=response_model_by_alias,
+                        exclude_unset=response_model_exclude_unset,
+                        exclude_defaults=response_model_exclude_defaults,
+                        exclude_none=response_model_exclude_none,
+                    )
+                else:
+                    data = jsonable_encoder(data)
+                    return json.dumps(_normalize_non_finite_floats(data)).encode(
+                        "utf-8"
+                    )
+    
+            if is_sse_stream:
+                # Generator endpoint: stream as Server-Sent Events
+                gen = dependant.call(**solved_result.values)
+    
+                def _serialize_sse_item(item: Any) -> bytes:
+                    if isinstance(item, ServerSentEvent):
+                        # User controls the event structure.
+                        # Serialize the data payload if present.
+                        # For ServerSentEvent items we skip stream_item_field
+                        # validation (the user may mix types intentionally).
+                        if item.raw_data is not None:
+                            data_str: str | None = item.raw_data
+                        elif item.data is not None:
+                            if hasattr(item.data, "model_dump_json"):
+                                data_str = item.data.model_dump_json()
+                            else:
+                                data_str = json.dumps(
+                                    _normalize_non_finite_floats(
+                                        jsonable_encoder(item.data)
+                                    )
+                                )
+                        else:
+                            data_str = None
+                        return format_sse_event(
+                            data_str=data_str,
+                            event=item.event,
+                            id=item.id,
+                            retry=item.retry,
+                            comment=item.comment,
+                        )
+                    else:
+                        # Plain object: validate + serialize via
+                        # stream_item_field (if set) and wrap in data field
+                        return format_sse_event(
+                            data_str=_serialize_data(item).decode("utf-8")
+                        )
+    
+                if _is_async_gen_callable(dependant.call):
+                    sse_aiter: AsyncIterator[Any] = gen.__aiter__()
+                else:
+                    sse_aiter = iterate_in_threadpool(gen)
+    
+                @asynccontextmanager
+                async def _sse_producer_cm() -> AsyncIterator[
+                    ObjectReceiveStream[bytes]
+                ]:
+                    # Use a memory stream to decouple generator iteration
+                    # from the keepalive timer. A producer task pulls items
+                    # from the generator independently, so
+                    # `anyio.fail_after` never wraps the generator's
+                    # `__anext__` directly - avoiding CancelledError that
+                    # would finalize the generator and also working for sync
+                    # generators running in a thread pool.
+                    #
+                    # This context manager is entered on the request-scoped
+                    # AsyncExitStack so its __aexit__ (which cancels the
+                    # task group) is called by the exit stack after the
+                    # streaming response completes ù not by async generator
+                    # finalization via GeneratorExit.
+                    # Ref: https://peps.python.org/pep-0789/
+                    send_stream, receive_stream = anyio.create_memory_object_stream[
+                        bytes
+                    ](max_buffer_size=1)
+    
+                    async def _producer() -> None:
+                        async with send_stream:
+                            async for raw_item in sse_aiter:
+                                await send_stream.send(_serialize_sse_item(raw_item))
+    
+                    send_keepalive, receive_keepalive = (
+                        anyio.create_memory_object_stream[bytes](max_buffer_size=1)
+                    )
+    
+                    async def _keepalive_inserter() -> None:
+                        """Read from the producer and forward to the output,
+                        inserting keepalive comments on timeout."""
+                        async with send_keepalive, receive_stream:
+                            try:
+                                while True:
+                                    try:
+                                        with anyio.fail_after(_PING_INTERVAL):
+                                            data = await receive_stream.receive()
+                                        await send_keepalive.send(data)
+                                    except TimeoutError:
+                                        await send_keepalive.send(KEEPALIVE_COMMENT)
+                            except anyio.EndOfStream:
+                                pass
+    
+                    async with anyio.create_task_group() as tg:
+                        tg.start_soon(_producer)
+                        tg.start_soon(_keepalive_inserter)
+                        yield receive_keepalive
+                        tg.cancel_scope.cancel()
+    
+                # Enter the SSE context manager on the request-scoped
+                # exit stack. The stack outlives the streaming response,
+                # so __aexit__ runs via proper structured teardown, not
+                # via GeneratorExit thrown into an async generator.
+                sse_receive_stream = await async_exit_stack.enter_async_context(
+                    _sse_producer_cm()
+                )
+                # Ensure the receive stream is closed when the exit stack
+                # unwinds, preventing ResourceWarning from __del__.
+                async_exit_stack.push_async_callback(sse_receive_stream.aclose)
+    
+                async def _sse_with_checkpoints(
+                    stream: ObjectReceiveStream[bytes],
+                ) -> AsyncIterator[bytes]:
+                    async for data in stream:
+                        yield data
+                        # Guarantee a checkpoint so cancellation can be
+                        # delivered even when the producer is faster than
+                        # the consumer and receive() never suspends.
+                        await anyio.sleep(0)
+    
+                sse_stream_content: AsyncIterator[bytes] | Iterator[bytes] = (
+                    _sse_with_checkpoints(sse_receive_stream)
+                )
+    
+                response_args = _build_response_args(
+                    status_code=status_code, solved_result=solved_result
+                )
+                response = StreamingResponse(
+                    sse_stream_content,
+                    media_type="text/event-stream",
+                    **response_args,
+                )
+                response.headers["Cache-Control"] = "no-cache"
+                # For Nginx proxies to not buffer server sent events
+                response.headers["X-Accel-Buffering"] = "no"
+                response.headers.raw.extend(solved_result.response.headers.raw)
+            elif is_json_stream:
+                # Generator endpoint: stream as JSONL
+                gen = dependant.call(**solved_result.values)
+    
+                def _serialize_item(item: Any) -> bytes:
+                    return _serialize_data(item) + b"\n"
+    
+                if _is_async_gen_callable(dependant.call):
+    
+                    async def _async_stream_jsonl() -> AsyncIterator[bytes]:
+                        async for item in gen:
+                            yield _serialize_item(item)
+                            # To allow for cancellation to trigger
+                            # Ref: https://github.com/fastapi/fastapi/issues/14680
+                            await anyio.sleep(0)
+    
+                    jsonl_stream_content: AsyncIterator[bytes] | Iterator[bytes] = (
+                        _async_stream_jsonl()
+                    )
+                else:
+    
+                    def _sync_stream_jsonl() -> Iterator[bytes]:
+                        for item in gen:  # ty: ignore[not-iterable]
+                            yield _serialize_item(item)
+    
+                    jsonl_stream_content = _sync_stream_jsonl()
+    
+                response_args = _build_response_args(
+                    status_code=status_code, solved_result=solved_result
+                )
+                response = StreamingResponse(
+                    jsonl_stream_content,
+                    media_type="application/jsonl",
+                    **response_args,
+                )
+                response.headers.raw.extend(solved_result.response.headers.raw)
+            elif _is_async_gen_callable(dependant.call) or _is_gen_callable(
+                dependant.call
+            ):
+                # Raw streaming with explicit response_class (e.g. StreamingResponse)
+                gen = dependant.call(**solved_result.values)
+                if _is_async_gen_callable(dependant.call):
+    
+                    async def _async_stream_raw(
+                        async_gen: AsyncIterator[Any],
+                    ) -> AsyncIterator[Any]:
+                        async for chunk in async_gen:
+                            yield chunk
+                            # To allow for cancellation to trigger
+                            # Ref: https://github.com/fastapi/fastapi/issues/14680
+                            await anyio.sleep(0)
+    
+                    gen = _async_stream_raw(gen)
+                response_args = _build_response_args(
+                    status_code=status_code, solved_result=solved_result
+                )
+                response = actual_response_class(content=gen, **response_args)
+                response.headers.raw.extend(solved_result.response.headers.raw)
+            else:
+>               raw_response = await run_endpoint_function(
+                    dependant=dependant,
+                    values=solved_result.values,
+                    is_coroutine=is_coroutine,
+                )
+
+.venv\Lib\site-packages\fastapi\routing.py:762: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def run_endpoint_function(
+        *, dependant: Dependant, values: dict[str, Any], is_coroutine: bool
+    ) -> Any:
+        # Only called by get_request_handler. Has been split into its own function to
+        # facilitate profiling endpoints, since inner functions are harder to profile.
+        assert dependant.call is not None, "dependant.call must be a function"
+    
+        if is_coroutine:
+            with _operation(name="endpoint", function=dependant.call):
+                return await dependant.call(**values)
+        else:
+>           return await run_in_threadpool(
+                _run_sync_endpoint, function=dependant.call, arguments=values
+            )
+
+.venv\Lib\site-packages\fastapi\routing.py:383: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+func = functools.partial(<function _run_sync_endpoint at 0x0000014945598400>, function=<function executar_simulacao at 0x00000149467BA200>, arguments={'dados': SimulacaoInput(cenario_id=3, trecho_id=3)})
+args = ()
+kwargs = {'arguments': {'dados': SimulacaoInput(cenario_id=3, trecho_id=3)}, 'function': <function executar_simulacao at 0x00000149467BA200>}
+
+    async def run_in_threadpool(func: Callable[P, T], *args: P.args, **kwargs: P.kwargs) -> T:
+        func = functools.partial(func, *args, **kwargs)
+>       return await anyio.to_thread.run_sync(func)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\starlette\concurrency.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+func = functools.partial(<function _run_sync_endpoint at 0x0000014945598400>, function=<function executar_simulacao at 0x00000149467BA200>, arguments={'dados': SimulacaoInput(cenario_id=3, trecho_id=3)})
+abandon_on_cancel = False, cancellable = None, limiter = None, args = ()
+
+    async def run_sync(
+        func: Callable[[Unpack[PosArgsT]], T_Retval],
+        *args: Unpack[PosArgsT],
+        abandon_on_cancel: bool = False,
+        cancellable: bool | None = None,
+        limiter: CapacityLimiter | None = None,
+    ) -> T_Retval:
+        """
+        Call the given function with the given arguments in a worker thread.
+    
+        If the ``abandon_on_cancel`` option is enabled and the task waiting for its
+        completion is cancelled, the thread will still run its course but its
+        return value (or any raised exception) will be ignored.
+    
+        :param func: a callable
+        :param args: positional arguments for the callable
+        :param abandon_on_cancel: ``True`` to abandon the thread (leaving it to run
+            unchecked on own) if the host task is cancelled, ``False`` to ignore
+            cancellations in the host task until the operation has completed in the worker
+            thread
+        :param cancellable: deprecated alias of ``abandon_on_cancel``; will override
+            ``abandon_on_cancel`` if both parameters are passed
+        :param limiter: capacity limiter to use to limit the total amount of threads running
+            (if omitted, the default limiter is used)
+        :raises NoEventLoopError: if no supported asynchronous event loop is running in the
+            current thread
+        :return: an awaitable that yields the return value of the function.
+    
+        """
+        if cancellable is not None:
+            abandon_on_cancel = cancellable
+            warn(
+                "The `cancellable=` keyword argument to `anyio.to_thread.run_sync` is "
+                "deprecated since AnyIO 4.1.0; use `abandon_on_cancel=` instead",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+    
+>       return await get_async_backend().run_sync_in_worker_thread(
+            func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        )
+
+.venv\Lib\site-packages\anyio\to_thread.py:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'anyio._backends._asyncio.AsyncIOBackend'>
+func = functools.partial(<function _run_sync_endpoint at 0x0000014945598400>, function=<function executar_simulacao at 0x00000149467BA200>, arguments={'dados': SimulacaoInput(cenario_id=3, trecho_id=3)})
+args = (), abandon_on_cancel = False, limiter = None
+
+    @classmethod
+    async def run_sync_in_worker_thread(  # type: ignore[return]
+        cls,
+        func: Callable[[Unpack[PosArgsT]], T_Retval],
+        args: tuple[Unpack[PosArgsT]],
+        abandon_on_cancel: bool = False,
+        limiter: BaseCapacityLimiter | None = None,
+    ) -> T_Retval:
+        await cls.checkpoint()
+    
+        # If this is the first run in this event loop thread, set up the necessary
+        # variables
+        try:
+            idle_workers = _threadpool_idle_workers.get()
+            workers = _threadpool_workers.get()
+        except LookupError:
+            idle_workers = deque()
+            workers = set()
+            _threadpool_idle_workers.set(idle_workers)
+            _threadpool_workers.set(workers)
+    
+        async with limiter or cls.current_default_thread_limiter():
+            with CancelScope(shield=not abandon_on_cancel) as scope:
+                future = asyncio.Future[T_Retval]()
+                root_task = find_root_task()
+                if not idle_workers:
+                    worker = WorkerThread(root_task, workers, idle_workers)
+                    worker.start()
+                    workers.add(worker)
+                    root_task.add_done_callback(worker.stop, context=Context())
+                else:
+                    worker = idle_workers.pop()
+    
+                    # Prune any other workers that have been idle for MAX_IDLE_TIME
+                    # seconds or longer
+                    now = cls.current_time()
+                    while idle_workers:
+                        if (
+                            now - idle_workers[0].idle_since
+                            < WorkerThread.MAX_IDLE_TIME
+                        ):
+                            break
+    
+                        expired_worker = idle_workers.popleft()
+                        expired_worker.root_task.remove_done_callback(
+                            expired_worker.stop
+                        )
+                        expired_worker.stop()
+    
+                context = copy_context()
+                context.run(set_current_async_library, None)
+                if abandon_on_cancel or scope._parent_scope is None:
+                    worker_scope = scope
+                else:
+                    worker_scope = scope._parent_scope
+    
+                worker.queue.put_nowait((context, func, args, future, worker_scope))
+>               return await future
+                       ^^^^^^^^^^^^
+
+.venv\Lib\site-packages\anyio\_backends\_asyncio.py:2779: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <WorkerThread(AnyIO worker thread, stopped 16912)>
+
+    def run(self) -> None:
+        with claim_worker_thread(AsyncIOBackend, self.loop):
+            while True:
+                item = self.queue.get()
+                if item is None:
+                    # Shutdown command received
+                    return
+    
+                context, func, args, future, cancel_scope = item
+                result = None
+                exception: BaseException | None = None
+                if not future.cancelled():
+                    threadlocals.current_cancel_scope = cancel_scope
+                    try:
+>                       result = context.run(func, *args)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\anyio\_backends\_asyncio.py:1124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _run_sync_endpoint(
+        *, function: Callable[..., Any], arguments: dict[str, Any]
+    ) -> Any:
+        with _operation(name="endpoint", function=function):
+>           return function(**arguments)
+                   ^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\fastapi\telemetry\_api.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+dados = SimulacaoInput(cenario_id=3, trecho_id=3)
+
+    @app.post("/simulacoes")
+    def executar_simulacao(dados: SimulacaoInput):
+        scenario = next((item for item in listar_cenarios() if item["id"] == dados.cenario_id), None)
+        if scenario is None:
+            raise HTTPException(status_code=404, detail="Cenßrio simulado nÒo encontrado")
+        segment = next((item for item in listar_trechos() if item["id"] == dados.trecho_id), None)
+        if segment is None:
+            raise HTTPException(status_code=404, detail="Trecho nÒo encontrado")
+        from datetime import datetime, timezone
+    
+        now = datetime.now(timezone.utc)
+        weather = {
+            "trecho_id": dados.trecho_id,
+            "fonte": "MOCK_LOCAL",
+            "precipitacao_mm": scenario["precipitacao_mm"],
+            "intensidade_mm_h": scenario["intensidade_mm_h"],
+            "data_hora": now,
+            "modo_dados": "mock",
+        }
+        if DATA_MODE == "mock":
+>           weather = registrar_medicao(weather)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+app\main.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+medicao = {'data_hora': datetime.datetime(2026, 11, 27, 2, 43, 59, 419567, tzinfo=datetime.timezone.utc), 'fonte': 'MOCK_LOCAL', 'intensidade_mm_h': 35.0, 'modo_dados': 'mock', ...}
+
+    def registrar_medicao(medicao: dict[str, Any]) -> dict[str, Any]:
+        for existing in listar_medicoes(medicao["trecho_id"]):
+            if existing.get("fonte") == medicao.get("fonte") and _as_datetime(existing.get("data_hora")) == _as_datetime(medicao.get("data_hora")):
+>               raise ValueError("MediþÒo duplicada para trecho, fonte e data/hora")
+E               ValueError: MediþÒo duplicada para trecho, fonte e data/hora
+
+app\repositories\__init__.py:320: ValueError
+=========================== short test summary info ===========================
+FAILED tests/test_backend_mvp.py::test_alerta_tem_validade_chave_estavel_e_historico
+======================== 1 failed, 24 passed in 2.04s =========================

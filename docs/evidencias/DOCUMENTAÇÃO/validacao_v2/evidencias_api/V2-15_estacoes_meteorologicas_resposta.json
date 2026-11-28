@@ -1,0 +1,119 @@
+[
+  {
+    "id": 1,
+    "codigo_externo": "CEMADEN-BUTANTA-CANDIDATA",
+    "fonte": "Cemaden",
+    "nome": "Pluviômetros de referência da Subprefeitura do Butantã / Vila Sônia",
+    "origem_dados": "mock",
+    "status_associacao": "pendente_validacao",
+    "coordenadas": null,
+    "trechos_candidatos": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "observacao": "Candidata indicada pelo usuário; estação, distância, cobertura e representatividade não verificadas. Não representa medição real."
+  },
+  {
+    "id": 2,
+    "codigo_externo": "INMET-A701-CANDIDATA",
+    "fonte": "INMET",
+    "nome": "Estação Automática São Paulo - Mirante de Santana (A701)",
+    "origem_dados": "mock",
+    "status_associacao": "pendente_validacao",
+    "coordenadas": null,
+    "trechos_candidatos": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "observacao": "Estação candidata indicada pelo usuário; representatividade para os segmentos não verificada. Não representa medição real."
+  },
+  {
+    "id": 3,
+    "codigo_externo": "INMET-A771-CANDIDATA",
+    "fonte": "INMET",
+    "nome": "Estação Automática São Paulo - Interlagos (A771)",
+    "origem_dados": "mock",
+    "status_associacao": "pendente_validacao",
+    "coordenadas": null,
+    "trechos_candidatos": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "observacao": "Estação candidata indicada pelo usuário; representatividade para os segmentos não verificada. Não representa medição real."
+  },
+  {
+    "id": 4,
+    "codigo_externo": "355030885A",
+    "fonte": "Cemaden",
+    "nome": "Vila Maria / Parque Novo Mundo",
+    "origem_dados": "mock",
+    "status_associacao": "validada",
+    "coordenadas": null,
+    "cobertura_km": {
+      "inicial": 225,
+      "final": 228
+    },
+    "trechos_candidatos": [
+      6,
+      7,
+      8
+    ],
+    "associacoes": {
+      "6": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      },
+      "7": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      },
+      "8": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      }
+    },
+    "observacao": "Mock station data supplied by user; validation flag is for testing only and is not an operational Cemaden confirmation."
+  },
+  {
+    "id": 5,
+    "codigo_externo": "355030843A",
+    "fonte": "Cemaden",
+    "nome": "Santana / Carandiru",
+    "origem_dados": "mock",
+    "status_associacao": "validada",
+    "coordenadas": null,
+    "cobertura_km": {
+      "inicial": 228,
+      "final": 230
+    },
+    "trechos_candidatos": [
+      9,
+      10
+    ],
+    "associacoes": {
+      "9": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      },
+      "10": {
+        "status_associacao": "validada",
+        "distancia_km": null,
+        "justificativa": "Association marked validated in the user-provided mock JSON; no station coordinates or live feed are included."
+      }
+    },
+    "observacao": "Mock station data supplied by user; validation flag is for testing only and is not an operational Cemaden confirmation."
+  }
+]

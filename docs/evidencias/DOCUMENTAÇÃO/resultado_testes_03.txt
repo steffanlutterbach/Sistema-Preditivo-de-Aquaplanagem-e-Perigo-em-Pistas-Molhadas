@@ -1,0 +1,34 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.3, pytest-8.4.2, pluggy-1.7.0 -- C:\Users\Lutter\Downloads\Sistema-Preditivo-de-Aquaplanagem-e-Perigo-em-Pistas-Molhadas\backend\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Lutter\Downloads\Sistema-Preditivo-de-Aquaplanagem-e-Perigo-em-Pistas-Molhadas\backend
+plugins: anyio-4.16.0
+collecting ... collected 25 items
+
+tests/test_backend_mvp.py::test_cinco_segmentos_br116_e_dados_aproximados PASSED [  4%]
+tests/test_backend_mvp.py::test_cadastrar_consultar_e_atualizar_segmento PASSED [  8%]
+tests/test_backend_mvp.py::test_validacao_intervalo_geometria_e_coordenadas PASSED [ 12%]
+tests/test_backend_mvp.py::test_associacao_candidata_precisa_ser_validada_antes_da_medicao PASSED [ 16%]
+tests/test_backend_mvp.py::test_meteorologia_e_identificada_e_duplicidade_rejeitada PASSED [ 20%]
+tests/test_backend_mvp.py::test_dados_meteorologicos_antigos_sao_marcados_e_nao_classificados PASSED [ 24%]
+tests/test_backend_mvp.py::test_cenarios_de_risco[1-1-baixo] PASSED      [ 28%]
+tests/test_backend_mvp.py::test_cenarios_de_risco[2-2-moderado] PASSED   [ 32%]
+tests/test_backend_mvp.py::test_cenarios_de_risco[3-3-alto] PASSED       [ 36%]
+tests/test_backend_mvp.py::test_faltam_dados_obrigatorios_sem_classificacao PASSED [ 40%]
+tests/test_backend_mvp.py::test_wd_e_condicional_e_inclinacao_percentual_e_usada_como_s PASSED [ 44%]
+tests/test_backend_mvp.py::test_wd_calcula_quando_declividade_do_caminho_esta_disponivel PASSED [ 48%]
+tests/test_backend_mvp.py::test_wd_fica_ausente_sem_mtd_sem_bloquear_analise_de_risco PASSED [ 52%]
+tests/test_backend_mvp.py::test_formula_hidrologica_existente PASSED     [ 56%]
+tests/test_backend_mvp.py::test_alerta_tem_validade_chave_estavel_e_historico PASSED [ 60%]
+tests/test_backend_mvp.py::test_mudanca_para_baixo_resolve_alerta_anterior PASSED [ 64%]
+tests/test_backend_mvp.py::test_localizacao_encontra_segmento_sem_reter_coordenada PASSED [ 68%]
+tests/test_backend_mvp.py::test_localizacao_fora_da_tolerancia_nao_afirma_segmento_atual PASSED [ 72%]
+tests/test_backend_mvp.py::test_alerta_do_proximo_segmento_e_retornado_com_distancia PASSED [ 76%]
+tests/test_backend_mvp.py::test_health_and_map_have_consistent_mock_data PASSED [ 80%]
+tests/test_backend_mvp.py::test_chave_de_api_e_exigida_quando_configurada PASSED [ 84%]
+tests/test_backend_mvp.py::test_falha_de_banco_retorna_503_sem_expor_detalhes PASSED [ 88%]
+tests/test_backend_mvp.py::test_simulacao_em_modo_real_nao_persiste_no_banco_operacional PASSED [ 92%]
+tests/test_backend_mvp.py::test_migrations_preservam_tabelas_e_incluem_cinco_segmentos PASSED [ 96%]
+tests/test_calculo_vazao.py::test_calcula_vazao PASSED                   [100%]
+
+============================= 25 passed in 0.99s ==============================

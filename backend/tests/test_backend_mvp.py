@@ -21,7 +21,11 @@ def request(method: str, path: str, payload: dict | None = None, headers: dict[s
         "type": "http", "asgi": {"version": "3.0"}, "http_version": "1.1",
         "method": method, "scheme": "http", "path": parsed.path, "raw_path": parsed.path.encode(),
         "query_string": parsed.query.encode(),
-        "headers": [(b"host", b"test"), *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items())],
+        "headers": [
+    (b"host", b"test"),
+    *([(b"content-type", b"application/json")] if payload is not None else []),
+    *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items()),
+],
         "client": ("test", 1234), "server": ("test", 80),
     }
     sent = []
@@ -93,9 +97,20 @@ def test_dados_da_via_dutra_permitem_calcular_risco_e_wd_condicional():
     assert status == 200
     assert result["trecho"]["codigo"] == "BR116-SP-227-228"
     assert result["resultado"]["nivel_risco"] == "alto"
-    assert result["resultado"]["wd_mm"] is not None
+    assert result["resultado"]["wd_mm"] is None
+    assert result["resultado"]["wd_status"] == "indisponivel_parametros_ausentes"
+    assert "declividade_caminho_percentual" in result["resultado"]["wd_dados_ausentes"]
     assert result["resultado"]["dados_utilizados"]["origem_dados"] == "mock"
 
+    status, _ = request("PATCH", "/trechos/8", {"declividade_caminho_percentual": 1.5})
+    assert status == 200
+
+    status, result = request("POST", "/simulacoes", {"cenario_id": 2, "trecho_id": 8})
+    assert status == 200
+    assert result["resultado"]["nivel_risco"] == "alto"
+    assert result["resultado"]["wd_mm"] is not None
+    assert result["resultado"]["wd_status"] == "calculada_condicionalmente"
+    assert result["resultado"]["dados_utilizados"]["wd_declividade_origem"] == "declividade_caminho_percentual"
 
 def test_localizacao_nao_mistura_regioes_diferentes_da_br116():
     status, result = request("POST", "/monitoramento/localizacao", {
@@ -198,7 +213,7 @@ def test_analise_preserva_rastreabilidade_dos_dados():
 
     assert used["fonte_meteorologia"] == "MOCK_RASTREABILIDADE"
     assert used["modo_meteorologia"] == "mock"
-    assert used["origem_trecho"] == "simulado_fornecido_pelo_usuario"
+    assert used["origem_trecho"] == "mock"
     assert used["geometria_validada"] is False
 
 def test_dados_meteorologicos_antigos_sao_marcados_e_nao_classificados():
