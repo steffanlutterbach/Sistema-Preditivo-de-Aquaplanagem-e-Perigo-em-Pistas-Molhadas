@@ -21,11 +21,7 @@ def request(method: str, path: str, payload: dict | None = None, headers: dict[s
         "type": "http", "asgi": {"version": "3.0"}, "http_version": "1.1",
         "method": method, "scheme": "http", "path": parsed.path, "raw_path": parsed.path.encode(),
         "query_string": parsed.query.encode(),
-        "headers": [
-    (b"host", b"test"),
-    *(([(b"content-type", b"application/json")] if payload is not None else [])),
-    *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items()),
-],
+        "headers": [(b"host", b"test"), *((key.lower().encode(), value.encode()) for key, value in (headers or {}).items())],
         "client": ("test", 1234), "server": ("test", 80),
     }
     sent = []
@@ -52,12 +48,64 @@ def clean_mock_state():
     resetar_mock()
 
 
-def test_cinco_segmentos_br116_e_dados_aproximados():
+def test_duas_regioes_br116_e_dados_de_teste():
     status, segments = request("GET", "/trechos")
     assert status == 200
-    assert [item["codigo"] for item in segments] == [f"BR116-{km}" for km in range(264, 269)]
-    assert all(item["origem_dados"] == "simulado_fornecido_pelo_usuario" for item in segments)
-    assert all(item["geometria_validada"] is False for item in segments)
+    by_code = {item["codigo"]: item for item in segments}
+    assert all(f"BR116-{km}" in by_code for km in range(264, 269))
+    assert all(f"BR116-SP-{km}-{km + 1}" in by_code for km in range(225, 230))
+    assert len(segments) == 10
+    assert all(by_code[f"BR116-{km}"]["geometria_validada"] is False for km in range(264, 269))
+    dutra = by_code["BR116-SP-227-228"]
+    assert dutra["rodovia_id"] == 2
+    assert dutra["area_contribuicao_m2"] == 15000
+    assert dutra["coeficiente_escoamento"] == 0.92
+    assert dutra["drenagem"]["capacidade_total_l_s"] == 200
+    assert dutra["geometria_validada"] is False
+    assert dutra["geometria"]["coordinates"] == [
+        [-46.559621, -23.4982879], [-46.5597897, -23.4984086],
+        [-46.5598764, -23.4984683], [-46.5612726, -23.4994294],
+        [-46.5619888, -23.4999483], [-46.5622756, -23.5001413],
+        [-46.5628671, -23.5005424], [-46.5643957, -23.501599],
+        [-46.5647315, -23.5018311], [-46.5649118, -23.5019545],
+        [-46.5650114, -23.5020235], [-46.5669905, -23.5033959],
+        [-46.5674241, -23.503739]
+    ]
+    assert "alto critico" in dutra["comportamento_esperado_declarado"]
+
+
+def test_estacoes_cemaden_de_teste_associadas_a_segunda_regiao():
+    status, vila_maria = request("GET", "/meteorologia/estacoes?trecho_id=6")
+    assert status == 200
+    assert len(vila_maria) == 1
+    assert vila_maria[0]["codigo_externo"] == "355030885A"
+    assert vila_maria[0]["status_associacao"] == "validada"
+
+    status, santana = request("GET", "/meteorologia/estacoes?trecho_id=9")
+    assert status == 200
+    assert len(santana) == 1
+    assert santana[0]["codigo_externo"] == "355030843A"
+    assert santana[0]["status_associacao"] == "validada"
+
+
+def test_dados_da_via_dutra_permitem_calcular_risco_e_wd_condicional():
+    status, result = request("POST", "/simulacoes", {"cenario_id": 2, "trecho_id": 8})
+    assert status == 200
+    assert result["trecho"]["codigo"] == "BR116-SP-227-228"
+    assert result["resultado"]["nivel_risco"] == "alto"
+    assert result["resultado"]["wd_mm"] is not None
+    assert result["resultado"]["dados_utilizados"]["origem_dados"] == "mock"
+
+
+def test_localizacao_nao_mistura_regioes_diferentes_da_br116():
+    status, result = request("POST", "/monitoramento/localizacao", {
+        "latitude": -23.48752, "longitude": -46.5439078, "sentido": "crescente"})
+    assert status == 200
+    assert result["segmento_atual"]["codigo"] == "BR116-SP-225-226"
+    assert all(not item["codigo"].startswith("BR116-26") for item in result["proximos_segmentos"])
+    assert [item["codigo"] for item in result["proximos_segmentos"]] == [
+        "BR116-SP-226-227", "BR116-SP-227-228", "BR116-SP-228-229", "BR116-SP-229-230"
+    ]
 
 
 def test_cadastrar_consultar_e_atualizar_segmento():
@@ -281,7 +329,7 @@ def test_health_and_map_have_consistent_mock_data():
     status, health = request("GET", "/health")
     assert status == 200 and health["modo_dados"] == "mock"
     status, feature_collection = request("GET", "/mapa/riscos")
-    assert status == 200 and len(feature_collection["features"]) == 5
+    assert status == 200 and len(feature_collection["features"]) == 10
     assert feature_collection["features"][0]["geometry"]["type"] == "LineString"
 
 
@@ -324,10 +372,21 @@ def test_migrations_preservam_tabelas_e_incluem_cinco_segmentos():
     root = Path(__file__).resolve().parents[2]
     migration = (root / "database" / "migrations" / "003_seed_br116_mock.sql").read_text(encoding="utf-8")
     schema_changes = (root / "database" / "migrations" / "002_backend_monitoramento.sql").read_text(encoding="utf-8")
+    via_dutra = (root / "database" / "migrations" / "005_update_via_dutra_test_geometry.sql").read_text(encoding="utf-8")
+    candidate_geometry = (root / "database" / "migrations" / "006_update_via_dutra_candidate_geometries.sql").read_text(encoding="utf-8")
+    osm_geometry = (root / "database" / "migrations" / "007_update_br116_osm_geometries.sql").read_text(encoding="utf-8")
     for kilometer in range(264, 269):
         assert f"BR116-{kilometer}" in migration
     assert "DROP TABLE" not in migration.upper()
     assert "DROP TABLE" not in schema_changes.upper()
+    assert "DROP TABLE" not in via_dutra.upper()
+    assert "DROP TABLE" not in candidate_geometry.upper()
+    assert "BR116-SP-225-226" in via_dutra
+    assert "ST_GeomFromText" in via_dutra
+    assert "geometria_validada = FALSE" in candidate_geometry
+    assert "BR116-264" in osm_geometry and "BR116-SP-225-226" in osm_geometry
+    assert "OpenStreetMap" in osm_geometry
+    assert "geometria_validada = FALSE" in osm_geometry
     assert "ADD COLUMN IF NOT EXISTS" in schema_changes
 
 

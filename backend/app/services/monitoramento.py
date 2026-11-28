@@ -64,7 +64,8 @@ def consultar_riscos_proximos(latitude: float, longitude: float, sentido: str | 
     nearest, fraction, current, points = min(candidates, key=lambda item: item[0])
     matched = nearest <= LOCATION_MATCH_TOLERANCE_METERS
     direction = sentido or "crescente"
-    ordered = sorted(segments, key=lambda item: float(item.get("km_inicial", 0)), reverse=direction == "decrescente")
+    same_road = [item for item in segments if item.get("rodovia_id") == current.get("rodovia_id")]
+    ordered = sorted(same_road, key=lambda item: float(item.get("km_inicial", 0)), reverse=direction == "decrescente")
     current_index = next((i for i, item in enumerate(ordered) if item["id"] == current["id"]), 0)
     remaining = (1 - fraction) * float(current.get("comprimento_m", _haversine(points[0], points[-1]))) if direction == "crescente" else fraction * float(current.get("comprimento_m", _haversine(points[0], points[-1])))
     start_distance = max(0.0, remaining)

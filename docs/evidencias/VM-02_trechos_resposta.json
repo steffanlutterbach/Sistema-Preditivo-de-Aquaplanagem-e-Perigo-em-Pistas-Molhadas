@@ -1,0 +1,248 @@
+[
+  {
+    "id": 1,
+    "codigo": "BR116-264",
+    "rodovia_id": 1,
+    "km_inicial": 264,
+    "km_final": 265,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.85,
+    "inclinacao_percentual": 3.5,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "bom",
+    "mtd_mm": 0.8,
+    "caminho_escoamento_m": 10.8,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Boca de lobo simples",
+      "quantidade": 20,
+      "capacidade_individual_l_s": 30,
+      "capacidade_total_l_s": 600
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "latitude": -23.5935,
+        "longitude": -46.734
+      },
+      "fim": {
+        "latitude": -23.5968,
+        "longitude": -46.7385
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.734,
+          -23.5935
+        ],
+        [
+          -46.7385,
+          -23.5968
+        ]
+      ]
+    },
+    "origem_dados": "simulado_fornecido_pelo_usuario",
+    "geometria_validada": false
+  },
+  {
+    "id": 2,
+    "codigo": "BR116-265",
+    "rodovia_id": 1,
+    "km_inicial": 265,
+    "km_final": 266,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.9,
+    "inclinacao_percentual": 1.5,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.55,
+    "caminho_escoamento_m": 11.2,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Boca de lobo simples",
+      "quantidade": 16,
+      "capacidade_individual_l_s": 25,
+      "capacidade_total_l_s": 400
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "latitude": -23.5968,
+        "longitude": -46.7385
+      },
+      "fim": {
+        "latitude": -23.6001,
+        "longitude": -46.7432
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.7385,
+          -23.5968
+        ],
+        [
+          -46.7432,
+          -23.6001
+        ]
+      ]
+    },
+    "origem_dados": "simulado_fornecido_pelo_usuario",
+    "geometria_validada": false
+  },
+  {
+    "id": 3,
+    "codigo": "BR116-266",
+    "rodovia_id": 1,
+    "km_inicial": 266,
+    "km_final": 267,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.95,
+    "inclinacao_percentual": 0.8,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "irregular",
+    "mtd_mm": 0.35,
+    "caminho_escoamento_m": 12,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Grelha de sarjeta / Boca de lobo",
+      "quantidade": 12,
+      "capacidade_individual_l_s": 15,
+      "capacidade_total_l_s": 180,
+      "observacao": "Capacidade informada como parcialmente obstruída; não medida em campo."
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "latitude": -23.6001,
+        "longitude": -46.7432
+      },
+      "fim": {
+        "latitude": -23.603,
+        "longitude": -46.748
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.7432,
+          -23.6001
+        ],
+        [
+          -46.748,
+          -23.603
+        ]
+      ]
+    },
+    "origem_dados": "simulado_fornecido_pelo_usuario",
+    "geometria_validada": false
+  },
+  {
+    "id": 4,
+    "codigo": "BR116-267",
+    "rodovia_id": 1,
+    "km_inicial": 267,
+    "km_final": 268,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.88,
+    "inclinacao_percentual": 4.2,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.6,
+    "caminho_escoamento_m": 11,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Boca de lobo simples",
+      "quantidade": 18,
+      "capacidade_individual_l_s": 28,
+      "capacidade_total_l_s": 504
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "latitude": -23.603,
+        "longitude": -46.748
+      },
+      "fim": {
+        "latitude": -23.6058,
+        "longitude": -46.7528
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.748,
+          -23.603
+        ],
+        [
+          -46.7528,
+          -23.6058
+        ]
+      ]
+    },
+    "origem_dados": "simulado_fornecido_pelo_usuario",
+    "geometria_validada": false
+  },
+  {
+    "id": 5,
+    "codigo": "BR116-268",
+    "rodovia_id": 1,
+    "km_inicial": 268,
+    "km_final": 269,
+    "comprimento_m": 1000,
+    "largura_m": 10.5,
+    "area_contribuicao_m2": 10500,
+    "coeficiente_escoamento": 0.9,
+    "inclinacao_percentual": 2.1,
+    "estado_inclinacao": "longitudinal; verificar em levantamento",
+    "pavimentacao": "CAUQ",
+    "estado_pavimento": "regular",
+    "mtd_mm": 0.5,
+    "caminho_escoamento_m": 11.5,
+    "declividade_caminho_percentual": null,
+    "drenagem": {
+      "tipo": "Boca de lobo simples",
+      "quantidade": 15,
+      "capacidade_individual_l_s": 22,
+      "capacidade_total_l_s": 330
+    },
+    "coordenadas_aproximadas": {
+      "inicio": {
+        "latitude": -23.6058,
+        "longitude": -46.7528
+      },
+      "fim": {
+        "latitude": -23.6085,
+        "longitude": -46.7575
+      }
+    },
+    "geometria": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -46.7528,
+          -23.6058
+        ],
+        [
+          -46.7575,
+          -23.6085
+        ]
+      ]
+    },
+    "origem_dados": "simulado_fornecido_pelo_usuario",
+    "geometria_validada": false
+  }
+]
